@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="change_sex">
+        <item>선택안함</item>
+        <item>여자</item>
+        <item>남자</item>
+    </string-array>
+</resources>
