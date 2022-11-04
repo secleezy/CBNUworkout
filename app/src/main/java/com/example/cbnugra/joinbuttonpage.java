@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import android.os.Bundle;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.w3c.dom.Text;
 
 public class joinbuttonpage extends AppCompatActivity {
@@ -57,32 +60,14 @@ public class joinbuttonpage extends AppCompatActivity {
                 textView.setText("");
             }
         });
-    }
 
-    //버튼 누르면 데이터베이스 연동 코드
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        conditionRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String text = dataSnapshot.getValue(String.class);
-                textView.setText(text);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
+        //버튼 클릭시
         go_join.setOnClickListener(new View.OnClickListener() {
-            @Override
-
             public void onClick(View v) {
                 databaseReference.child("message").push().setValue("2");
             }
         });
     }
+
+
 }
