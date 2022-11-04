@@ -34,7 +34,6 @@ public class joinbuttonpage extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int positions, long l) {
                 textView.setText(items[positions]);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 textView.setText("");
