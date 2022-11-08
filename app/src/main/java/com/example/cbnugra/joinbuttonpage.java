@@ -1,32 +1,40 @@
 package com.example.cbnugra;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 public class joinbuttonpage extends AppCompatActivity {
     TextView textView;
 
     //회원가입 데이터베이스 연결코드
-    EditText joinid; //1104천지연
-    EditText joinpw;
-    Button go_join;
+    EditText joinid, joinpw, joinpw_checked, name, call_num, birth;
+    Button go_join, id_checked;
+    RadioButton code_trainer, code_none;
+    boolean validate=false;
+    AlertDialog dialog;
 
-    String ID;
-    String PW;
+    String ID, PW;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -47,8 +55,53 @@ public class joinbuttonpage extends AppCompatActivity {
         joinid = (EditText) findViewById(R.id.joinid);
         joinpw = (EditText) findViewById(R.id.joinpw);
         go_join = (Button) findViewById(R.id.go_join);
+        joinpw_checked=(EditText)findViewById(R.id.joinpw_checked);
+        name=(EditText)findViewById(R.id.name);
+        call_num=(EditText)findViewById(R.id.call_num);
+        birth=(EditText)findViewById(R.id.birth);
 
-
+        //아이디 중복 체크(firebase 연동 코드 필요)
+        id_checked=(Button)findViewById(R.id.id_checked);
+        id_checked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userid=joinid.getText().toString();
+                if(validate){
+                    return;
+                }
+                if(userid.equals("")){
+                    AlertDialog.Builder builder=new AlertDialog.Builder(joinbuttonpage.this);
+                    dialog=builder.setMessage("아이디를 입력하세요").setPositiveButton("확인",null).create();
+                    dialog.show();
+                    return;
+                }
+                Response.Listener<String> responseListener=new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success=jsonResponse.getBoolean("success");
+                            if(success){
+                                AlertDialog.Builder builder=new AlertDialog.Builder(joinbuttonpage.this);
+                                dialog=builder.setMessage("사용할 수 있는 아이디입니다").setPositiveButton("확인",null).create();
+                                dialog.show();
+                                joinid.setEnabled(false);//아이디 값 고정
+                                validate = true;
+                                id_checked.setBackgroundColor(getResources().getColor(R.color.gray));
+                            }
+                            else{
+                                AlertDialog.Builder builder=new AlertDialog.Builder(joinbuttonpage.this);
+                                dialog=builder.setMessage("이미 존재하는 아이디입니다").setNegativeButton("확인",null).create();
+                                dialog.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+               //firebase 연동해서 아이디 있는지 확인 코드 필요
+            }
+        });
 
         //스피너(성별선택 코드)
         Spinner spinner=findViewById(R.id.change_sex);

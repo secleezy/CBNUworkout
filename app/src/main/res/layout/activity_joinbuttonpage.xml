@@ -41,7 +41,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checked"
+            android:id="@+id/id_checked"
             android:text="중복확인"
             android:textSize="15dp"
             />
@@ -215,32 +215,32 @@
             />
     </LinearLayout>
     //회원유형 선택
-    <LinearLayout
+    <RadioGroup
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="5dp">
+        android:orientation="horizontal">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textStyle="bold"
             android:text="회원유형"
-            android:layout_marginRight="5dp"/>
-        <TextView
-            android:id="@+id/code_trainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:textSize="20dp"
-            android:text="트레이너"/>
-        <TextView
             android:layout_marginLeft="5dp"
-            android:id="@+id/code_non"
+            android:layout_marginRight="5dp"
+            android:textStyle="bold"/>
+        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="트레이너"
             android:textSize="20dp"
+            android:id="@+id/code_trainer"
+            android:layout_marginRight="5dp"/>
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="해당 없음"
+            android:textSize="20dp"
+            android:id="@+id/code_none"
             android:layout_marginRight="5dp"/>
         <TextView
             android:layout_width="wrap_content"
@@ -249,7 +249,8 @@
             android:text="*"
             android:textColor="#ff0000"
             />
-    </LinearLayout>
+
+    </RadioGroup>
     <Button
         android:id="@+id/go_join"
         android:layout_width="wrap_content"
@@ -260,6 +261,4 @@
         android:textStyle="bold"
         android:layout_gravity="right"
         android:layout_marginRight="10dp"/>
-
-
-</LinearLayout>
+    </LinearLayout>
