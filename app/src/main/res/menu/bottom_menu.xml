@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/mainpage"
+        android:enabled="true"
+        android:icon="@drawable/home"
+        android:title="Home"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/calender"
+        android:enabled="true"
+        android:icon="@drawable/calendar"
+        android:title="캘린더"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/member_list"
+        android:enabled="true"
+        android:icon="@drawable/list"
+        android:title="회원리스트"
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/mypage"
+        android:enabled="true"
+        android:icon="@drawable/mypage"
+        android:title="내정보"
+        app:showAsAction="always"
+        />
+
+</menu>
