@@ -1,7 +1,6 @@
 package com.example.cbnugra;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,19 +9,17 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
-import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.android.volley.Response;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class joinbuttonpage extends AppCompatActivity {
     TextView textView;
@@ -121,7 +118,6 @@ public class joinbuttonpage extends AppCompatActivity {
                 textView.setText("");
             }
         });
-
         //버튼 클릭시
         go_join.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -130,7 +126,7 @@ public class joinbuttonpage extends AppCompatActivity {
 
                 if(ID.isEmpty() || PW.isEmpty())
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), "짧은 토스트 메시지입니다.",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "짧은 토스트 메시지입니다.", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 else
@@ -138,6 +134,8 @@ public class joinbuttonpage extends AppCompatActivity {
 
             }
         });
+
+
     }
 
     //값을 파이어베이스 Realtime database로 넘기는 함수
@@ -155,5 +153,6 @@ public class joinbuttonpage extends AppCompatActivity {
 
 
     }
+
 
 }
