@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mypage">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -33,6 +30,7 @@
             android:text="abc1234"
             android:enabled="false"
             android:textSize="20dp" />
+
         //아이디 정보 받아야 함 현재 abc1234로 표기되게 함
     </LinearLayout>
     <LinearLayout
@@ -58,6 +56,13 @@
             android:inputType="textPassword"
             android:textSize="20dp"
             android:enabled="false"/>
+
+        <Button
+            android:id="@+id/go_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="비밀번호변경"
+            android:textSize="15dp" />
         //비밀번호 정보 받아야 함 현재 1234로 표기되게 함
     </LinearLayout>
 
@@ -120,8 +125,7 @@
             android:layout_height="wrap_content"
             android:ems="5"
             android:hint="MM/DD/YY"
-            android:textSize="20dp"
-            android:enabled="false" />
+            android:textSize="20dp" />
         //생년월일 정보 받아와야 함 현재 아무런 입력정보 없음.
     </LinearLayout>
     <LinearLayout
@@ -143,7 +147,6 @@
             android:ems="8"
             android:textSize="20dp"
             android:text="010-1234-1234"
-            android:enabled="false"
             />
         //전화번호 정보 받아와야 함 현재 010-1234-1234.
     </LinearLayout>
@@ -160,29 +163,30 @@
             android:textStyle="bold"
             android:text="회원유형"
             android:layout_marginRight="5dp"/>
+
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             >
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="트레이너"
-            android:textSize="20dp"
-            android:id="@+id/code_trainer"
-            android:layout_marginRight="5dp"
-            android:enabled="false"
-            android:checked="false"/>
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="해당 없음"
-            android:textSize="20dp"
-            android:id="@+id/code_none"
-            android:layout_marginRight="5dp"
-            android:enabled="false"
-            android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/code_trainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="트레이너"
+                android:textSize="20dp"/>
+
+            <RadioButton
+                android:id="@+id/code_none"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:checked="true"
+                android:text="해당 없음"
+                android:textSize="20dp"/>
+
         </RadioGroup>
         //회원유형 라디오 버튼 비활성화(enabled = false) 상태임. 현재 해당없음에 true값. 가져온 회원유형 정보에 따라 false ture가 바뀌도록 해야함.
     </LinearLayout>
@@ -211,15 +215,13 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/go_change_memberinfo"
+        android:id="@+id/finish_change_memberinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
-        android:text="회원정보 수정하기"
+        android:text="수정완료"
         android:textSize="20dp"
         android:textStyle="bold" />
 </LinearLayout>
-
-</FrameLayout>

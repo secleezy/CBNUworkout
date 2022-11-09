@@ -11,6 +11,9 @@
         android:theme="@style/Theme.CBNUgra">
         <activity android:name=".joinbuttonpage"></activity>
         <activity android:name=".join" />
+        <activity android:name=".mainhome"/>
+        <activity android:name=".ChangeMemberinfo"/>
+        <activity android:name=".ChangePassword"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
