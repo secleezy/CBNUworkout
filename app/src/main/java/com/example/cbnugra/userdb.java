@@ -4,13 +4,13 @@ package com.example.cbnugra;
 //파이어베이스는 RDBMS와 다르기 때문에 테이블이라는 개념이 없음. 원래는 키값이라고 부름
 public class userdb {
 
-    String ID; // 아이디
-    String PW; // 패스워드
-    String UserName; // 이름
-    String Sex; // 성별
-    String Birthday; //생년월일
-    String Phonenum; // 전화번호
-    Boolean trainer; // 회원유형, true가 트레이너
+    private String ID; // 아이디
+    private String PW; // 패스워드
+    private String UserName; // 이름
+    private String Sex; // 성별
+    private String Birthday; //생년월일
+    private String Phonenum; // 전화번호
+    private Boolean trainer; // 회원유형, true가 트레이너
 
     public userdb(){} // 생성자 메서드
 
