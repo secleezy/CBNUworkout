@@ -66,8 +66,9 @@ public class join extends AppCompatActivity {
                                         String value2 = snapshot2.getValue(String.class);
 
                                         if(value2.equals(userpw)){
-                                            Toast.makeText(getApplicationContext(),"로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();//토스메세지 출력
+
                                             Intent intent = new Intent(getApplicationContext(), mainhome.class);
+                                            intent.putExtra("user",userid);
                                             startActivity(intent);
                                         }
                                         else{

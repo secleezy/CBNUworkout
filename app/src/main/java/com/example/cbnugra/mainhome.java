@@ -3,6 +3,7 @@ package com.example.cbnugra;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,9 @@ public class mainhome extends AppCompatActivity{
         calender=new calender();
         memberlist=new memberlist();
         mypage=new mypage();
+
+        String userid = getIntent().getStringExtra("user");
+        Toast.makeText(getApplicationContext(),userid + "님 환영합니다.",Toast.LENGTH_SHORT).show();//토스메세지 출력
 
         getSupportFragmentManager().beginTransaction().replace(R.id.containers,afterloginmainpage).commit();
 

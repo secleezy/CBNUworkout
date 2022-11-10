@@ -37,7 +37,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:text=""
         tools:layout_editor_absoluteY="408dp" />
 

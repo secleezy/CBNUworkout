@@ -61,13 +61,16 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginRight="5dp"/>
+
         <EditText
             android:id="@+id/joinpw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="8"
             android:hint="비밀번호"
+            android:inputType="textPassword"
             android:textSize="20dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,6 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="8"
+            android:inputType="textPassword"
             android:hint="비밀번호 확인"
             android:textSize="20dp" />
     </LinearLayout>
