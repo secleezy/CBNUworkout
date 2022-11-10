@@ -1,5 +1,6 @@
 package com.example.cbnugra;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -7,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,17 +23,26 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 public class joinbuttonpage extends AppCompatActivity {
     TextView textView;
 
     //회원가입 데이터베이스 연결코드
     EditText joinid, joinpw, joinpw_checked, name, call_num, birth;
+    TextView sex;
+    RadioGroup select_trainer;
     Button go_join, id_checked;
-    RadioButton code_trainer, code_none;
     boolean validate=false;
     AlertDialog dialog;
 
     String ID, PW;
+    String PWcheck;
+    String UserName;
+    String Sex;
+    String Birthday;
+    String Phonenum;
+    Boolean trainer;
+    Boolean trainer_get=false; //라디오 골랐어?
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -54,8 +65,12 @@ public class joinbuttonpage extends AppCompatActivity {
         go_join = (Button) findViewById(R.id.go_join);
         joinpw_checked=(EditText)findViewById(R.id.joinpw_checked);
         name=(EditText)findViewById(R.id.name);
+        sex=(TextView)findViewById(R.id.show_sex);
         call_num=(EditText)findViewById(R.id.call_num);
         birth=(EditText)findViewById(R.id.birth);
+        select_trainer=(RadioGroup)findViewById(R.id.select_trainer);
+
+
 
         //아이디 중복 체크(firebase 연동 코드 필요)
         id_checked=(Button)findViewById(R.id.id_checked);
@@ -102,7 +117,7 @@ public class joinbuttonpage extends AppCompatActivity {
 
         //스피너(성별선택 코드)
         Spinner spinner=findViewById(R.id.change_sex);
-        TextView textView=findViewById(R.id.show_sex);
+        //TextView textView=findViewById(R.id.show_sex);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item, items
         );
@@ -111,26 +126,102 @@ public class joinbuttonpage extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int positions, long l) {
-                textView.setText(items[positions]);
+                sex.setText(items[positions]);
             }
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                textView.setText("");
+                sex.setText("");
             }
         });
+
+        //라디오버튼(트레이너)인식 코드
+
+        select_trainer.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i)
+                {
+                    case R.id.code_trainer:
+                        trainer_get=true;
+                        trainer=true;
+                        break;
+                    case R.id.code_none:
+                        trainer_get=true;
+                        trainer=false;
+                        break;
+                }
+            }
+        });
+
+
         //버튼 클릭시
         go_join.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 ID = joinid.getText().toString();
                 PW = joinpw.getText().toString();
+                PWcheck = joinpw_checked.getText().toString();
+                UserName = name.getText().toString();
 
-                if(ID.isEmpty() || PW.isEmpty())
+                Sex = spinner.getSelectedItem().toString();
+
+                Birthday=birth.getText().toString();
+                Phonenum=call_num.getText().toString();
+
+                if(ID.isEmpty())
                 {
-                    Toast toast = Toast.makeText(getApplicationContext(), "짧은 토스트 메시지입니다.", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(getApplicationContext(), "아이디를 입력 해 주세요.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(PW.isEmpty())
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "비밀번호를 입력 해 주세요.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(PWcheck.isEmpty() || !PW.equals(PWcheck))
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "비밀번호를 재확인 해주세요.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(UserName.isEmpty())
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "이름을 입력 해 주세요.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(Sex.equals("선택안함"))
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "성별을 골라 주세요.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(Birthday.isEmpty())
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "생일을 입력 주세요.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(Phonenum.isEmpty())
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "전화번호를 입력 해 주세요.", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(!trainer_get)
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "회원유형을 골라 주세요.", Toast.LENGTH_SHORT);
                     toast.show();
                 }
                 else
-                    adduser(ID, PW);
+                {
+                    Toast toast = Toast.makeText(getApplicationContext(), "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    adduser(ID, PW, UserName, Sex, Birthday, Phonenum, trainer);
+
+                    Intent intent = new Intent(getApplicationContext(), join.class);
+                    startActivity(intent);
+
+
+
+                }
+
 
             }
         });
@@ -139,16 +230,9 @@ public class joinbuttonpage extends AppCompatActivity {
     }
 
     //값을 파이어베이스 Realtime database로 넘기는 함수
-    public void adduser(String ID, String PW) {
+    public void adduser(String ID, String PW, String UserName, String Sex, String Birthday, String Phonenum, Boolean trainer) {
 
-        //여기에서 직접 변수를 만들어서 값을 직접 넣는것도 가능합니다.
-        // ex) 갓 태어난 동물만 입력해서 int age=1; 등을 넣는 경우
-
-        //animal.java에서 선언했던 함수.
-        userdb userdb = new userdb(ID,PW);
-
-        //child는 해당 키 위치로 이동하는 함수입니다.
-        //키가 없는데 "zoo"와 name같이 값을 지정한 경우 자동으로 생성합니다.
+        userdb userdb = new userdb(ID,PW,UserName,Sex,Birthday,Phonenum,trainer);
         databaseReference.child("user").child(ID).setValue(userdb);
 
 
