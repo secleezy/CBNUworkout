@@ -13,12 +13,17 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Response;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,6 +48,8 @@ public class joinbuttonpage extends AppCompatActivity {
     String Phonenum;
     Boolean trainer;
     Boolean trainer_get=false; //라디오 골랐어?
+    
+    Boolean id_check_success=false;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -87,31 +94,31 @@ public class joinbuttonpage extends AppCompatActivity {
                     dialog.show();
                     return;
                 }
-                Response.Listener<String> responseListener=new Response.Listener<String>() {
+
+                //
+                databaseReference.child("user").child(userid).child("id").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success=jsonResponse.getBoolean("success");
-                            if(success){
-                                AlertDialog.Builder builder=new AlertDialog.Builder(joinbuttonpage.this);
-                                dialog=builder.setMessage("사용할 수 있는 아이디입니다").setPositiveButton("확인",null).create();
-                                dialog.show();
-                                joinid.setEnabled(false);//아이디 값 고정
-                                validate = true;
-                                id_checked.setBackgroundColor(getResources().getColor(R.color.gray));
-                            }
-                            else{
-                                AlertDialog.Builder builder=new AlertDialog.Builder(joinbuttonpage.this);
-                                dialog=builder.setMessage("이미 존재하는 아이디입니다").setNegativeButton("확인",null).create();
-                                dialog.show();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String value = snapshot.getValue(String.class);
+
+                        if(value!=null){
+                            Toast.makeText(getApplicationContext(),"이미 존재하는 아이디입니다.",Toast.LENGTH_SHORT).show();//토스메세지 출력
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"사용 가능한 아이디입니다.",Toast.LENGTH_SHORT).show();//토스메세지 출력
+                            joinid.setEnabled(false);
+                            id_check_success=true;
                         }
                     }
-                };
-               //firebase 연동해서 아이디 있는지 확인 코드 필요
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // 디비를 가져오던중 에러 발생 시
+                        //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                    }
+                });
+                //
+               //firebase 연동해서 아이디 있는지 확인 코드 필요 - 완료
             }
         });
 

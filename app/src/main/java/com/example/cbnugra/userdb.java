@@ -74,6 +74,5 @@ public class userdb {
         this.Birthday=Birthday;
         this.Phonenum=Phonenum;
         this.trainer=trainer;
-        //adduser(  Birthday, Phonenum, trainer);
     }
 }
