@@ -12,6 +12,9 @@
         <activity android:name=".joinbuttonpage"></activity>
         <activity android:name=".join" />
         <activity android:name=".mainhome"/>
+        <activity android:name=".mainhome_meal"></activity>
+        <activity android:name=".mainhome_workout"></activity>
+        <activity android:name=".mainhome_mypage"></activity>
         <activity android:name=".ChangeMemberinfo"/>
         <activity android:name=".ChangePassword"/>
         <activity android:name=".MainActivity">

@@ -38,7 +38,7 @@ public class join extends AppCompatActivity {
         Button joinbuttton = (Button) findViewById(R.id.joinbt);
         Button loginbtton = (Button) findViewById(R.id.loginbt);
 
-        //로그인 후 homepage로 이동, DB로 로그인 확인 연동 아직 안됌. 페이지 넘김만 확인 가능
+        //로그인 후 homepage로 이동
         loginbtton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
