@@ -20,6 +20,30 @@ public class mainhome_mypage extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
 
+
+
+        Button modifyuser = (Button) findViewById(R.id.modifyuser);
+
+        modifyuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ChangeMemberinfo.class);
+                startActivity(intent);
+            }
+        });
+
+        Button changepwd = (Button) findViewById(R.id.changepwd);
+
+        modifyuser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
+                startActivity(intent);
+            }
+        });
+
+        //
+
         Button bt1 = (Button) findViewById(R.id.bt1);
         Button bt2 = (Button) findViewById(R.id.bt2);
         Button bt3 = (Button) findViewById(R.id.bt3);

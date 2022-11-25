@@ -8,11 +8,18 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/toolBar">
 
-        <TextView
-            android:id="@+id/textView"
+        <Button
+            android:id="@+id/modifyuser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="마이페이지" />
+            android:layout_weight="1"
+            android:text="회원정보수정" />
+        <Button
+            android:id="@+id/changepwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="비밀번호변경" />
     </RelativeLayout>
 
     <LinearLayout
