@@ -1,19 +1,18 @@
 package com.example.cbnugra;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 
 public class mainhome extends AppCompatActivity{
 
-    //
+    BottomNavigationView bottomNavigationView;
+
     @Override
     public void onBackPressed() { //뒤로가기 금지코드
     }
@@ -23,46 +22,35 @@ public class mainhome extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainhome);
 
-        Button bt1 = (Button) findViewById(R.id.bt1);
-        Button bt2 = (Button) findViewById(R.id.bt2);
-        Button bt3 = (Button) findViewById(R.id.bt3);
-        Button bt4 = (Button) findViewById(R.id.bt4);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavi);
 
-        bt1.setOnClickListener(new View.OnClickListener() {
+        //처음화면  Framlayout에 fragment.xml 띄우기
+        getSupportFragmentManager().beginTransaction().add(R.id.main_frame, new mainhome_home()).commit();
+        //바텀 네비게이션뷰 안의 아이템 설정
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), mainhome.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0); //animation제거
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch(item.getItemId()){
+                    //item 클릭 시 id 값을 가져와  Framlayout에 fragment.xml 띄우기
+                    case R.id.mainpage:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new mainhome_home()).commit();
+                        break;
+                    case R.id.calender:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new mainhome_calendar()).commit();
+                        break;
+                    case R.id.member_list:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new mainhome_workout()).commit();
+                        break;
+                    case R.id.mypage:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.main_frame, new mainhome_mypage()).commit();
+                        break;
+                }
+
+
+                return true;
             }
         });
 
-        bt2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent2 = new Intent(getApplicationContext(), mainhome_meal.class);
-                startActivity(intent2);
-                overridePendingTransition(0, 0); //animation제거
-            }
-        });
-
-        bt3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent3 = new Intent(getApplicationContext(), mainhome_workout.class);
-                startActivity(intent3);
-                overridePendingTransition(0, 0); //animation제거
-            }
-        });
-
-        bt4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent4 = new Intent(getApplicationContext(), mainhome_mypage.class);
-                startActivity(intent4);
-                overridePendingTransition(0, 0); //animation제거
-            }
-        });
 
     }
 

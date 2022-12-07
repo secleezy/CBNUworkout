@@ -1,93 +1,25 @@
 package com.example.cbnugra;
 
-
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class mainhome_mypage extends AppCompatActivity{
+public class mainhome_mypage extends Fragment {
 
 
     @Override
-    public void onBackPressed() { //뒤로가기 금지코드
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mypage);
-
-
-
-        Button modifyuser = (Button) findViewById(R.id.modifyuser);
-
-        modifyuser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ChangeMemberinfo.class);
-                startActivity(intent);
-            }
-        });
-
-        Button changepwd = (Button) findViewById(R.id.changepwd);
-
-        modifyuser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
-                startActivity(intent);
-            }
-        });
-
-        //
-
-        Button bt1 = (Button) findViewById(R.id.bt1);
-        Button bt2 = (Button) findViewById(R.id.bt2);
-        Button bt3 = (Button) findViewById(R.id.bt3);
-        Button bt4 = (Button) findViewById(R.id.bt4);
-
-        bt1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), mainhome.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0); //animation제거
-            }
-        });
-
-        bt2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), mainhome_meal.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0); //animation제거
-            }
-        });
-
-        bt3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), mainhome_workout.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0); //animation제거
-            }
-        });
-
-        bt4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), mainhome_mypage.class);
-                startActivity(intent);
-                overridePendingTransition(0, 0); //animation제거
-            }
-        });
 
     }
-
-    //
-
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_mainhome_mypage, container, false);
+    }
 }
