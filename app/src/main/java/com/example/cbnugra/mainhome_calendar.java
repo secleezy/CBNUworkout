@@ -26,6 +26,9 @@ public class mainhome_calendar extends Fragment {
     LocalDate selectedDate; //년월 변수
     RecyclerView recyclerView;
 
+    private TextView title;
+    private String name;
+
     //fragment에는 setContentView가 없음
     //이 경우 그리고자 하는 View를 onCreateView 메소드에서 return해주면 된다.
     public void OnCreate(Bundle savedInstance){
@@ -62,6 +65,16 @@ public class mainhome_calendar extends Fragment {
                 setMonthView();
             }
         });
+
+
+        title = view.findViewById(R.id.title);
+
+        if (getArguments() != null)
+        {
+            name = getArguments().getString("name"); // 프래그먼트1에서 받아온 값 넣기
+            //name이 id임. name이 id임.  name이 id임.  name이 id임.
+        }
+
         return view;
 
     }
