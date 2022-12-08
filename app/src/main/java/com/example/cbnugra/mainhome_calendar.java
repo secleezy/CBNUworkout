@@ -1,5 +1,6 @@
 package com.example.cbnugra;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -127,7 +128,9 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     @Override
     public void onItemClick(String dayText) {
         String yearMonDay = YearMonthFromDate(selectedDate)+ " " + dayText + "일";
-        Toast.makeText(getActivity(), yearMonDay, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), record.class);
+        intent.putExtra("YYMMDD", yearMonDay.toString());
+        startActivity(intent);
 
     }
 }
