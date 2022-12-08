@@ -1,5 +1,6 @@
 package com.example.cbnugra;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,15 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         //날짜 적용
-        holder.dayText.setText(dayList.get(position));
+        String day=dayList.get(position);
+
+        holder.dayText.setText(day);
+
+        if((position+1)%7==0){
+            holder.dayText.setTextColor(Color.BLUE);
+        }else if(position==0 || (position%7)==0){
+            holder.dayText.setTextColor(Color.RED);
+        }
     }
 
     @Override

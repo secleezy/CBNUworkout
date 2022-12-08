@@ -28,7 +28,7 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="년"
+            android:hint="년"
             tools:layout_editor_absoluteY="362dp" />
 
         <EditText
@@ -38,7 +38,7 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="월"
+            android:hint="월"
             tools:layout_editor_absoluteY="362dp" />
 
         <EditText
@@ -48,7 +48,7 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="일"
+            android:hint="일"
             tools:layout_editor_absoluteY="362dp" />
 
         <EditText
@@ -58,7 +58,7 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="운동이름"
+            android:hint="운동이름"
             tools:layout_editor_absoluteY="362dp" />
 
         <EditText
@@ -68,7 +68,7 @@
             android:layout_gravity="center"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="칼로리"
+            android:hint="칼로리"
             tools:layout_editor_absoluteY="362dp" />
 
         <Button
