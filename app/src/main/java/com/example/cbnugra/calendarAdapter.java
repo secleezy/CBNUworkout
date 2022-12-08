@@ -1,5 +1,6 @@
 package com.example.cbnugra;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,12 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
         //날짜 변수에 담기
         String day = dayList.get(position);
         holder.dayText.setText(day);
+
+        if((position+1)%7==0){
+            holder.dayText.setTextColor(Color.BLUE);
+        }else if(position==0 || (position%7)==0) {
+            holder.dayText.setTextColor(Color.RED);
+        }
 
         //날짜 클릭 이벤트
         holder.itemView.setOnClickListener(new View.OnClickListener() {
