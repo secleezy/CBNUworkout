@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.security.Key;
 import java.time.LocalDate;
@@ -20,7 +21,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class mainhome_calendar extends Fragment {
+public class mainhome_calendar extends Fragment implements OnItemListener{
 
     TextView MonthYearText; //년월 텍스트뷰
     LocalDate selectedDate; //년월 변수
@@ -78,9 +79,14 @@ public class mainhome_calendar extends Fragment {
         return view;
 
     }
-    //날짜 타입 설정
+    //날짜 타입 설정 (MM월 YY년)
     private String MonthYearFromDate(LocalDate date){
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("MM월 yyyy");
+        return date.format(formatter);
+    }
+    //날짜 타입 설정 (YY년 MM월)
+    private String YearMonthFromDate(LocalDate date){
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyy년 MM월");
         return date.format(formatter);
     }
     //화면 설정
@@ -89,7 +95,7 @@ public class mainhome_calendar extends Fragment {
         MonthYearText.setText(MonthYearFromDate(selectedDate));
 
         ArrayList<String> dayList =daysInMonthArray(selectedDate);
-        calendarAdapter adater=new calendarAdapter(dayList);
+        calendarAdapter adater=new calendarAdapter(dayList ,mainhome_calendar.this);
         //레이아웃 설정(열 7개)
         //fragment 에서는 getContext가 안될경우 getActivity().getContext 사용
         RecyclerView.LayoutManager manager=new GridLayoutManager(getActivity().getApplicationContext(),7);
@@ -115,5 +121,13 @@ public class mainhome_calendar extends Fragment {
             }
         }
         return dayList;
+    }
+
+    //날짜 클릭시 이벤트
+    @Override
+    public void onItemClick(String dayText) {
+        String yearMonDay = YearMonthFromDate(selectedDate)+ " " + dayText + "일";
+        Toast.makeText(getActivity(), yearMonDay, Toast.LENGTH_SHORT).show();
+
     }
 }
