@@ -2,6 +2,7 @@ package com.example.cbnugra;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -9,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,17 +76,14 @@ public class record extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+        ScrollView scrollView = (ScrollView) findViewById(R.id.scrollView);
+        listView1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                scrollView.requestDisallowInterceptTouchEvent(true);
 
-        //리스트 뷰 높이 지정
-        int totalHieght = 0;
-        for (int i = 0; i < adapter.getCount(); i++) {
-            View listItem = adapter.getView(i, null, listView1);
-            listItem.measure(0, 0);
-            totalHieght += listItem.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams params = listView1.getLayoutParams();
-        params.height = totalHieght + (listView1.getDividerHeight() * (adapter.getCount() - 1));
-        listView1.setLayoutParams(params);
-        listView1.setAdapter(adapter);
+                return false;
+            }
+        });
     }
 }
