@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class mainhome_workout extends Fragment {
+public class mainhome_list extends Fragment {
 
     private View view;
     private TextView title;
@@ -24,7 +24,7 @@ public class mainhome_workout extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_mainhome_home, container, false);
+        view = inflater.inflate(R.layout.fragment_mainhome_list, container, false);
         title = view.findViewById(R.id.title);
 
         if (getArguments() != null)

@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,7 +35,7 @@ public class mainhome extends AppCompatActivity{
         mainhome_home.setArguments(bundle);
         mainhome_calendar mainhome_calendar = new mainhome_calendar();//프래그먼트2 선언
         mainhome_calendar.setArguments(bundle);
-        mainhome_workout mainhome_workout = new mainhome_workout();//프래그먼트2 선언
+        mainhome_list mainhome_workout = new mainhome_list();//프래그먼트2 선언
         mainhome_workout.setArguments(bundle);
         mainhome_mypage mainhome_mypage = new mainhome_mypage();//프래그먼트2 선언
         mainhome_mypage.setArguments(bundle);

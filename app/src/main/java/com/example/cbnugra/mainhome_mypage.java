@@ -24,7 +24,7 @@ public class mainhome_mypage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_mainhome_home, container, false);
+        view = inflater.inflate(R.layout.fragment_mainhome_mypage, container, false);
         title = view.findViewById(R.id.title);
 
         if (getArguments() != null)
