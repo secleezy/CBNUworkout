@@ -31,6 +31,8 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     private TextView title;
     private String name;
 
+
+
     //fragment에는 setContentView가 없음
     //이 경우 그리고자 하는 View를 onCreateView 메소드에서 return해주면 된다.
     public void OnCreate(Bundle savedInstance){
@@ -129,7 +131,7 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     public void onItemClick(String dayText) {
         String yearMonDay = YearMonthFromDate(selectedDate)+ " " + dayText + "일";
         Intent intent = new Intent(getActivity(), record.class);
-        intent.putExtra("YYMMDD", yearMonDay.toString());
+        intent.putExtra("user",name);
         startActivity(intent);
 
     }
