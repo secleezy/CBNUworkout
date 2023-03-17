@@ -30,6 +30,8 @@ import org.json.JSONObject;
 
 
 public class joinbuttonpage extends AppCompatActivity {
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
     TextView textView;
 
     //회원가입 데이터베이스 연결코드
@@ -50,10 +52,6 @@ public class joinbuttonpage extends AppCompatActivity {
     Boolean trainer_get=false; //라디오 골랐어?
     
     Boolean id_check_success=false;
-
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = firebaseDatabase.getReference();
-
 
     //스피너 배열 값
     String[] items={"선택안함","여자","남자" };

@@ -11,10 +11,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class ChangeMemberinfo extends AppCompatActivity {
 
     String[] items={"선택안함","여자","남자" };
-
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,10 +26,17 @@ public class ChangeMemberinfo extends AppCompatActivity {
         setContentView(R.layout.activity_changememberinfo);
         Button gochangepassword = (Button) findViewById(R.id.go_change_password);
         Button finishchangememberinfo = (Button) findViewById(R.id.finish_change_memberinfo);
+
+        Intent intent = getIntent();
+        String name = intent.getExtras().getString("name");
+        //name이 id임. name이 id임.  name이 id임.  name이 id임.
+
+
         gochangepassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
+                intent.putExtra("user",name);
                 startActivity(intent);
             }
         });

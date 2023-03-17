@@ -74,7 +74,7 @@ public class join extends AppCompatActivity {
                                             String value2 = snapshot2.getValue(String.class);
 
                                             if(value2.equals(userpw)){
-
+                                                //홈으로 이동!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!11
                                                 Intent intent = new Intent(getApplicationContext(), mainhome.class);
                                                 intent.putExtra("user",userid);
                                                 startActivity(intent);
@@ -110,8 +110,9 @@ public class join extends AppCompatActivity {
 
             }
         });
+        
+        //회원가입 버튼 클릭
         joinbuttton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), joinbuttonpage.class);
