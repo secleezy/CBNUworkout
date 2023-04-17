@@ -16,10 +16,11 @@
     <ImageView
         android:id="@+id/iv_title"
         android:transitionName="imgTransition"
-        android:layout_width="400dp"
-        android:layout_height="400dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:src="@drawable/mainworkout" />
+        android:layout_marginTop="100dp"
+        android:src="@drawable/ic_launcher_background" />
 
     <Button
         android:id="@+id/btn_Start"

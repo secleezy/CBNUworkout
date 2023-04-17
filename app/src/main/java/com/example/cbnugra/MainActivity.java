@@ -10,6 +10,8 @@
     import android.view.View;
     import android.widget.Button;
     import android.widget.ImageView;
+    import com.bumptech.glide.Glide;
+
 
     public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +29,7 @@
         btnStart = (Button)findViewById(R.id.btn_Start);
         ivTitle = (ImageView) findViewById(R.id.iv_title);
 
+        Glide.with(this).load(R.raw.loading).into(ivTitle); //로딩 이미지
 
 
         new Handler().postDelayed(new Runnable() {
@@ -44,7 +47,7 @@
 
                 startActivity(intent,options.toBundle());
             }
-        }, 1000);
+        }, 2000);
 
 
     }
