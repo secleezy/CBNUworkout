@@ -24,14 +24,18 @@ import java.util.TimeZone;
 public class mainhome_home extends Fragment {
     private View view;
     private TextView title;
+    private TextView thisistitle;
     private String name;
     private Button workoutbt;
+
 
     EditText year;
     EditText month;
     EditText day;
     EditText workoutname;
     EditText kcal;
+
+
 
     String time_log;
 
@@ -64,6 +68,8 @@ public class mainhome_home extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_mainhome_home, container, false);
         title = view.findViewById(R.id.title);
+        thisistitle = view.findViewById(R.id.thisistitle);
+        thisistitle.setText("\uD83C\uDF1E 오늘의 몸무게 : ");
         workoutbt = view.findViewById(R.id.workoutbt);
 
         year = view.findViewById(R.id.year);

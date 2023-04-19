@@ -3,14 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".mainhome_home">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="80dp"
         android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/thisistitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="aaa"
+
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textSize="25sp"/>
+
+        <EditText
+            android:id="@+id/todaysweight"
+            android:layout_width="120dp"
+            android:layout_height="match_parent"></EditText>
+    </LinearLayout>
+
 
         <TextView
             android:id="@+id/title"
@@ -21,35 +43,47 @@
             android:layout_gravity="center"
             android:textSize="25sp"/>
 
-        <EditText
-            android:id="@+id/year"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="년"
-            tools:layout_editor_absoluteY="362dp" />
 
-        <EditText
-            android:id="@+id/month"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="월"
-            tools:layout_editor_absoluteY="362dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/day"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="일"
-            tools:layout_editor_absoluteY="362dp" />
+            <EditText
+                android:id="@+id/year"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="년"
+                android:gravity="center"
+                tools:layout_editor_absoluteY="362dp" />
+
+            <EditText
+                android:id="@+id/month"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:hint="월"
+                android:gravity="center"
+                android:inputType="textPersonName"
+                tools:layout_editor_absoluteY="362dp" />
+
+            <EditText
+                android:id="@+id/day"
+                android:layout_width="70dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="일"
+                android:gravity="center"
+                tools:layout_editor_absoluteY="362dp" />
+        </LinearLayout>
+
+
 
         <EditText
             android:id="@+id/workoutname"
