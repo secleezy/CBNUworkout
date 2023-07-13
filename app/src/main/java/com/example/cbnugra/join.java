@@ -64,7 +64,6 @@ public class join extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot datasnapshot) {
                             String value = datasnapshot.getValue(String.class);
 
-
                             {
                                 if(value!=null){
                                     //

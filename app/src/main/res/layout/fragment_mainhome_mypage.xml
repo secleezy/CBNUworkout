@@ -13,7 +13,7 @@
     <!-- TODO: Update blank fragment layout -->
         <TextView
             android:id="@+id/title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="!!mypage!!"
             android:layout_gravity="center"
@@ -23,6 +23,7 @@
             android:id="@+id/bt_changememberinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="회원정보변경" />
 
 
@@ -30,6 +31,7 @@
             android:id="@+id/bt_changepassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="비밀번호변경" />
     </LinearLayout>
 </FrameLayout>

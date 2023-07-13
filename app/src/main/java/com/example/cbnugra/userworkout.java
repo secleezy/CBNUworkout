@@ -11,6 +11,7 @@ public class userworkout {
     private String Day;
     private String workoutname; //운동이름
     private String kcal; //칼로리
+    private String food;
 
     public userworkout(){} // 생성자 메서드
 
@@ -63,6 +64,14 @@ public class userworkout {
     }
     public void setkcal(String name) {
         this.Day = kcal;
+    }
+
+    public String getFood() {
+        return food;
+    }
+
+    public void setFood(String food) {
+        this.food = food;
     }
 
 

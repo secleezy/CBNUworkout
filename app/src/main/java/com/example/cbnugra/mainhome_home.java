@@ -5,6 +5,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +16,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -70,18 +78,19 @@ public class mainhome_home extends Fragment {
         title = view.findViewById(R.id.title);
         thisistitle = view.findViewById(R.id.thisistitle);
         thisistitle.setText("\uD83C\uDF1E 오늘의 몸무게 : ");
+        title.setText("\uD83D\uDCAA 오늘의 운동 기록하기");
         workoutbt = view.findViewById(R.id.workoutbt);
 
         year = view.findViewById(R.id.year);
         month = view.findViewById(R.id.month);
         day = view.findViewById(R.id.day);
-        workoutname = view.findViewById(R.id.workoutname);
+        //workoutname = view.findViewById(R.id.workoutname);
         kcal = view.findViewById(R.id.kcal);
 
         if (getArguments() != null)
         {
             name = getArguments().getString("name"); // 프래그먼트1에서 받아온 값 넣기
-            title.setText(name + "님 안녕하세요. 오늘은 어떤 운동을 하셨나요?");
+
             //name이 id임. name이 id임.  name이 id임.  name이 id임.
         }
 
@@ -110,12 +119,51 @@ public class mainhome_home extends Fragment {
             }
         });
 
+        //////////////////////////////////////////////////////////////////////////////////
+        Spinner foodSpinner = view.findViewById(R.id.foodSpinner);
+        DatabaseReference foodRef = databaseReference.child("Food");
+
+
+        foodRef.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> foodList = new ArrayList<>();
+
+                for (DataSnapshot noSnapshot : dataSnapshot.getChildren()) {
+                    for (DataSnapshot foodSnapshot : noSnapshot.getChildren()) {
+
+                        if (foodSnapshot.getKey().equals("식품명")) {
+                            String foodName = foodSnapshot.getValue(String.class);
+                            foodList.add(foodName);
+
+
+                        }
+
+                    }
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, foodList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                foodSpinner.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // 에러 처리를 수행합니다.
+            }
+        });
+        //스피너에 추가
+
         return view;
     }
 
     //값을 파이어베이스 Realtime database로 넘기는 함수
     public void addworkout(String ID, String time_log, String Year, String Month, String Day, String workoutname, String kcal) {
+        String selectedFood = ((Spinner) view.findViewById(R.id.foodSpinner)).getSelectedItem().toString();
+
         userworkout userworkout = new userworkout(ID, time_log, Year, Month, Day, workoutname, kcal);
+        userworkout.setFood(selectedFood);
+
         databaseReference.child("workout").child(ID).child(time_log).setValue(userworkout);
     }
 }

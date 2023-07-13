@@ -1,5 +1,6 @@
 package com.example.cbnugra;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -31,12 +33,22 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     private TextView title;
     private String name;
 
+    GestureDetector detector;
+    TextView textView;
+
+    private void showToast(String message) {
+        Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    //0712
 
 
     //fragment에는 setContentView가 없음
     //이 경우 그리고자 하는 View를 onCreateView 메소드에서 return해주면 된다.
-    public void OnCreate(Bundle savedInstance){
+    @Override
+    public void onCreate(Bundle savedInstance){
         super.onCreate(savedInstance);
+
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -44,32 +56,22 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
         //초기화
         MonthYearText=(TextView)view.findViewById(R.id.MonthYearText);
-        ImageButton leftBtn=(ImageButton) view.findViewById(R.id.left_btn);
-        ImageButton rightBtn=(ImageButton) view.findViewById(R.id.right_btn);
         recyclerView=(RecyclerView) view.findViewById(R.id.recyclerView);
         //현재 날짜
         selectedDate=(LocalDate) LocalDate.now();
         //화면 설정
         setMonthView();
         //이전달 버튼 이벤트
-        leftBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //현재 월-1 변수에 담기
-                selectedDate=selectedDate.minusMonths(1);
-                setMonthView();
-            }
-        });
-        //다음달 버튼 이벤트
-        rightBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                //현재 월+1 변수에 담기
-                selectedDate=selectedDate.plusMonths(1);
-                setMonthView();
-            }
-        });
 
+
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent motionEvent) {
+                detector.onTouchEvent(motionEvent);
+                return true;
+            }
+        });
 
         title = view.findViewById(R.id.title);
 
@@ -79,9 +81,80 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
             //name이 id임. name이 id임.  name이 id임.  name이 id임.
         }
 
+        /////////////////////////////////////////////////////////////////////////////
+
+        detector = new GestureDetector(getActivity().getApplicationContext(), new GestureDetector.OnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+            }
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                float deltaX = e2.getX() - e1.getX();
+                float deltaY = e2.getY() - e1.getY();
+
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    // 좌우로 스와이프된 경우
+                    if (Math.abs(deltaX) > 100 && Math.abs(velocityX) > 100) {
+                        if (deltaX > 0) {
+                            // 오른쪽으로 스와이프
+                            selectedDate=selectedDate.minusMonths(1);
+                            setMonthView();
+                        } else {
+                            // 왼쪽으로 스와이프
+                            selectedDate=selectedDate.plusMonths(1);
+                            setMonthView();
+                        }
+                    }
+                }
+
+                return true;
+            }
+        });
+
+        ViewGroup parentViewGroup = (ViewGroup) view.getParent();
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent motionEvent) {
+                detector.onTouchEvent(motionEvent);
+                return true;
+            }
+        });
+
+
+        recyclerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent motionEvent) {
+                detector.onTouchEvent(motionEvent);
+                return true;
+            }
+        });
+
+
         return view;
 
     }
+
+
+
     //날짜 타입 설정 (MM월 YY년)
     private String MonthYearFromDate(LocalDate date){
         DateTimeFormatter formatter=DateTimeFormatter.ofPattern("MM월 yyyy");

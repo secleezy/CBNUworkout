@@ -15,6 +15,7 @@
         <activity android:name=".ChangeMemberinfo"/>
         <activity android:name=".ChangePassword"/>
         <activity android:name=".record"/>
+        <activity android:name=".FoodSearchActivity"/>
         <activity android:name=".MainActivity">
 
             <intent-filter>
