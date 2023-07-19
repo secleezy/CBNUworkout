@@ -1,32 +1,32 @@
 package com.example.cbnugra;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.List;
 
-public class FoodSearchActivity extends AppCompatActivity {
-    private EditText searchEditText;
-    private ListView foodListView;
+public class FoodSearchActivity extends AppCompatActivity  {
 
+    private EditText editTextSearch;
+    private Button buttonSearch;
+    private ListView listViewFoods;
+    private ArrayList<String> foodList;
+    private ArrayAdapter<String> adapter;
+
+    // Firebase reference
     private DatabaseReference databaseReference;
 
     @Override
@@ -34,58 +34,62 @@ public class FoodSearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_search);
 
-        searchEditText = findViewById(R.id.searchEditText);
-        foodListView = findViewById(R.id.foodListView);
+        editTextSearch = findViewById(R.id.editTextSearch);
+        buttonSearch = findViewById(R.id.buttonSearch);
+        listViewFoods = findViewById(R.id.listViewFoods);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Food");
+        foodList = new ArrayList<>();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, foodList);
+        listViewFoods.setAdapter(adapter);
 
-        foodListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // Initialize Firebase Database reference
+        databaseReference = FirebaseDatabase.getInstance().getReference("Food");
+
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchFoods(editTextSearch.getText().toString());
+            }
+        });
+
+        listViewFoods.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // 리스트뷰에서 선택된 식품을 처리하는 로직 추가
-                String selectedFood = (String) parent.getItemAtPosition(position);
-                Toast.makeText(FoodSearchActivity.this, "선택된 식품: " + selectedFood, Toast.LENGTH_SHORT).show();
+                String selectedFood = foodList.get(position);
+
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("selectedFood", selectedFood);
+                setResult(RESULT_OK, resultIntent);
+                finish();
             }
         });
-
-        searchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String searchText = s.toString();
-
-                searchFood(searchText);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
-        });
+        //아이템 반환
     }
 
-    private void searchFood(String searchText) {
-        Query query = databaseReference.orderByChild("Food").startAt(searchText).endAt(searchText + "\uf8ff");
+    private void searchFoods(String query) {
+        if (TextUtils.isEmpty(query)) {
+            return;
+        }
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.orderByChild("식품명").startAt(query).endAt(query + "\uf8ff").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> foodList = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String foodName = snapshot.child("식품명").getValue(String.class);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                foodList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String foodName = dataSnapshot.child("식품명").getValue(String.class);
                     if (foodName != null) {
                         foodList.add(foodName);
                     }
                 }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(FoodSearchActivity.this, android.R.layout.simple_list_item_1, foodList);
-                foodListView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // 에러 처리를 수행합니다.
+            public void onCancelled(@NonNull DatabaseError error) {
+                // Handle database error
             }
         });
     }
+
+
 }
