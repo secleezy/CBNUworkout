@@ -121,7 +121,7 @@ public class mainhome_home extends Fragment {
 
         //////////////////////////////////////////////////////////////////////////////////
         Spinner foodSpinner = view.findViewById(R.id.foodSpinner);
-        DatabaseReference foodRef = databaseReference.child("Food");
+        DatabaseReference foodRef = databaseReference.child("Workout_List");
 
 
         foodRef.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
@@ -132,7 +132,7 @@ public class mainhome_home extends Fragment {
                 for (DataSnapshot noSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot foodSnapshot : noSnapshot.getChildren()) {
 
-                        if (foodSnapshot.getKey().equals("식품명")) {
+                        if (foodSnapshot.getKey().equals("운동ㄴㄷ명")) {
                             String foodName = foodSnapshot.getValue(String.class);
                             foodList.add(foodName);
 
