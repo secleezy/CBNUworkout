@@ -28,11 +28,13 @@ public class mainhome_list extends Fragment {
     private static final int REQUEST_CODE_FOOD_SEARCH = 100;
     private TextView selectedTextView;
 
+    private TextView textView1, textView2, textView3, textView4, textView5, textView6;
+
     private TextView carbsValue;
     private TextView proteinValue;
     private TextView fatValue;
     private TextView sugarValue;
-    private TextView sodiumValue;
+    private TextView energyValue;
 
     private DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Food");
     private DatabaseReference foodRecordReference = FirebaseDatabase.getInstance().getReference("Food_Record");
@@ -50,66 +52,48 @@ public class mainhome_list extends Fragment {
             name = getArguments().getString("name");
         }
 
-        TextView textView1 = view.findViewById(R.id.textView1);
-        TextView textView2 = view.findViewById(R.id.textView2);
-        TextView textView3 = view.findViewById(R.id.textView3);
-        TextView textView4 = view.findViewById(R.id.textView4);
-        TextView textView5 = view.findViewById(R.id.textView5);
-        TextView textView6 = view.findViewById(R.id.textView6);
+        textView1 = view.findViewById(R.id.textView1);
+        textView2 = view.findViewById(R.id.textView2);
+        textView3 = view.findViewById(R.id.textView3);
+        textView4 = view.findViewById(R.id.textView4);
+        textView5 = view.findViewById(R.id.textView5);
+        textView6 = view.findViewById(R.id.textView6);
 
-        textView1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedTextView = textView1;
-                startFoodSearchActivity();
-            }
+        textView1.setOnClickListener(v -> {
+            selectedTextView = textView1;
+            startFoodSearchActivity();
         });
 
-        textView2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedTextView = textView2;
-                startFoodSearchActivity();
-            }
+        textView2.setOnClickListener(v -> {
+            selectedTextView = textView2;
+            startFoodSearchActivity();
         });
 
-        textView3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedTextView = textView3;
-                startFoodSearchActivity();
-            }
+        textView3.setOnClickListener(v -> {
+            selectedTextView = textView3;
+            startFoodSearchActivity();
         });
 
-        textView4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedTextView = textView4;
-                startFoodSearchActivity();
-            }
+        textView4.setOnClickListener(v -> {
+            selectedTextView = textView4;
+            startFoodSearchActivity();
         });
 
-        textView5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedTextView = textView5;
-                startFoodSearchActivity();
-            }
+        textView5.setOnClickListener(v -> {
+            selectedTextView = textView5;
+            startFoodSearchActivity();
         });
 
-        textView6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedTextView = textView6;
-                startFoodSearchActivity();
-            }
+        textView6.setOnClickListener(v -> {
+            selectedTextView = textView6;
+            startFoodSearchActivity();
         });
 
         carbsValue = view.findViewById(R.id.carbsValue);
         proteinValue = view.findViewById(R.id.proteinValue);
         fatValue = view.findViewById(R.id.fatValue);
         sugarValue = view.findViewById(R.id.sugarValue);
-        sodiumValue = view.findViewById(R.id.sodiumValue);
+        energyValue = view.findViewById(R.id.energyValue);
 
         return view;
     }
@@ -134,7 +118,7 @@ public class mainhome_list extends Fragment {
         }
     }
 
-    private void fetchNutritionValues(String foodName) { //식품 선택시
+    private void fetchNutritionValues(String foodName) {
         databaseReference.orderByChild("식품명").equalTo(foodName).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -170,9 +154,23 @@ public class mainhome_list extends Fragment {
                             foodRecordReference.child(name).child(todayDate).child("Sugar").setValue(sugarValue.getText());
                         }
                         if (energy != null) {
-                            double currentEnergy = Double.parseDouble(sodiumValue.getText().toString());
-                            sodiumValue.setText(String.format("%.2f", currentEnergy + Double.parseDouble(energy)));
-                            foodRecordReference.child(name).child(todayDate).child("Energy").setValue(sodiumValue.getText());
+                            double currentEnergy = Double.parseDouble(energyValue.getText().toString());
+                            energyValue.setText(String.format("%.2f", currentEnergy + Double.parseDouble(energy)));
+                            foodRecordReference.child(name).child(todayDate).child("Energy").setValue(energyValue.getText());
+                        }
+
+                        if (selectedTextView == textView1) {
+                            foodRecordReference.child(name).child(todayDate).child("아침").setValue(foodName);
+                        } else if (selectedTextView == textView2) {
+                            foodRecordReference.child(name).child(todayDate).child("오전간식").setValue(foodName);
+                        } else if (selectedTextView == textView3) {
+                            foodRecordReference.child(name).child(todayDate).child("점심").setValue(foodName);
+                        } else if (selectedTextView == textView4) {
+                            foodRecordReference.child(name).child(todayDate).child("오후간식").setValue(foodName);
+                        } else if (selectedTextView == textView5) {
+                            foodRecordReference.child(name).child(todayDate).child("저녁").setValue(foodName);
+                        } else if (selectedTextView == textView6) {
+                            foodRecordReference.child(name).child(todayDate).child("야식").setValue(foodName);
                         }
                     }
                 }

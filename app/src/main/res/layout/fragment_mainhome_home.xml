@@ -3,161 +3,166 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".mainhome_home">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:orientation="vertical"
->
-
-
-
-        ///////////////////////////////////
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:orientation="horizontal"
-        android:padding="25dp"
-        android:layout_gravity="left"
-        android:background="@color/darkblue">
-        <TextView
-            android:id="@+id/thisistitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="aaa"
-            android:textColor="@color/white"
-            android:layout_gravity="left"
-            android:textSize="21sp"/>
-
-        <EditText
-            android:id="@+id/todaysweight"
-            android:layout_width="140dp"
-            android:textColor="@color/white"
-            android:textSize="21sp"
-            android:layout_height="wrap_content">
-
-        </EditText>
-
-    </LinearLayout>
-    /////////오늘의 몸무게
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal"
-        android:background="@color/white">
-    </LinearLayout>
-        /////////공백
-
-    /////////////////////////////////////////
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="!!mainhome!!"
-            android:padding="25dp"
-            android:textColor="@color/black"
-            android:layout_gravity="left"
-            android:textSize="21sp"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="180dp"
+            android:orientation="horizontal"
+            android:padding="25dp"
+            android:layout_gravity="left"
+            android:background="@color/darkblue">
+
+            <TextView
+                android:id="@+id/thisistitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="aaa"
+                android:textColor="@color/white"
+                android:layout_gravity="left"
+                android:textSize="21sp"/>
+
+            <EditText
+                android:id="@+id/todaysweight"
+                android:layout_width="140dp"
+                android:textColor="@color/white"
+                android:textSize="21sp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- Spacer for "오늘의 몸무게" -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
             android:orientation="horizontal"
             android:background="@color/white">
         </LinearLayout>
-        /////////공백
-
 
         <LinearLayout
-            android:layout_width="210dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="!!mainhome!!"
+                android:padding="25dp"
+                android:textColor="@color/black"
+                android:layout_gravity="left"
+                android:textSize="21sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <!-- Year Spinner -->
+                <Spinner
+                    android:id="@+id/yearSpinner"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <!-- Month Spinner -->
+                <Spinner
+                    android:id="@+id/monthSpinner"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+                <!-- Day Spinner -->
+                <Spinner
+                    android:id="@+id/daySpinner"
+                    android:layout_width="70dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+            <!-- Workout Part RadioGroup -->
+            <RadioGroup
+                android:id="@+id/workoutPartRadioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <RadioButton
+                    android:id="@+id/chestRadioButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="가슴"/>
+                <RadioButton
+                    android:id="@+id/backRadioButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="등"/>
+                <RadioButton
+                    android:id="@+id/armRadioButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="팔"/>
+                <RadioButton
+                    android:id="@+id/shoulderRadioButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="어깨"/>
+                <RadioButton
+                    android:id="@+id/legRadioButton"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="하체"/>
+            </RadioGroup>
+
+            <Spinner
+                android:id="@+id/foodSpinner"
+                android:layout_width="210dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"/>
 
             <EditText
-                android:id="@+id/year"
-                android:layout_width="70dp"
+                android:id="@+id/kcal"
+                android:layout_width="210dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="년"
-                android:gravity="center"
-                tools:layout_editor_absoluteY="362dp" />
-
-            <EditText
-                android:id="@+id/month"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:ems="10"
-                android:hint="월"
-                android:gravity="center"
-                android:inputType="textPersonName"
-                tools:layout_editor_absoluteY="362dp" />
-
-            <EditText
-                android:id="@+id/day"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="일"
-                android:gravity="center"
-                tools:layout_editor_absoluteY="362dp" />
+                android:hint="칼로리"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:orientation="horizontal"
+                android:background="@color/white">
+            </LinearLayout>
         </LinearLayout>
 
-        <Spinner
-            android:id="@+id/foodSpinner"
-            android:layout_width="210dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteY="362dp"
-            />
-
-        <EditText
-            android:id="@+id/kcal"
-            android:layout_width="210dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="칼로리"
-            tools:layout_editor_absoluteY="362dp" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:orientation="horizontal"
-            android:background="@color/white">
-        </LinearLayout>
-
-
-    </LinearLayout>
-    //////////운동 기록하기
-
+        <!-- 저장하기 Button -->
         <Button
             android:id="@+id/workoutbt"
             android:layout_width="110dp"
             android:layout_marginRight="30dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="저장하기"
-            tools:layout_editor_absoluteY="454dp" />
-
+            android:text="저장하기"/>
     </LinearLayout>
-////////////////////////////////////////////
-
-
 </FrameLayout>
