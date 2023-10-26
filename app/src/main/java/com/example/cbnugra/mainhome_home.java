@@ -4,6 +4,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 import android.view.LayoutInflater;
@@ -35,7 +37,8 @@ public class mainhome_home extends Fragment {
 
     Spinner yearSpinner, monthSpinner, daySpinner, foodSpinner;
     EditText kcal;
-
+    RadioGroup workoutPartRadioGroup;
+    RadioButton chestRadioButton,backRadioButton,armRadioButton,shoulderRadioButton,legRadioButton;
     List<String> years, months;
 
     String time_log;
@@ -69,12 +72,25 @@ public class mainhome_home extends Fragment {
         title.setText("\uD83D\uDCAA 오늘의 운동 기록하기");
         workoutbt = view.findViewById(R.id.workoutbt);
 
+
         yearSpinner = view.findViewById(R.id.yearSpinner);
         monthSpinner = view.findViewById(R.id.monthSpinner);
         daySpinner = view.findViewById(R.id.daySpinner);
         foodSpinner = view.findViewById(R.id.foodSpinner);
         kcal = view.findViewById(R.id.kcal);
 
+        workoutPartRadioGroup = view.findViewById(R.id.workoutPartRadioGroup);
+        chestRadioButton = view.findViewById(R.id.chestRadioButton);
+        backRadioButton = view.findViewById(R.id.backRadioButton);
+        armRadioButton=view.findViewById(R.id.armRadioButton);
+        shoulderRadioButton=view.findViewById(R.id.shoulderRadioButton);
+        legRadioButton=view.findViewById(R.id.legRadioButton);
+
+        List<String> chestList = new ArrayList<>();
+        List<String> backList = new ArrayList<>();
+        List<String> armList = new ArrayList<>();
+        List<String> shoulderList = new ArrayList<>();
+        List<String> legList = new ArrayList<>();
         if (getArguments() != null) {
             name = getArguments().getString("name");
         }
@@ -94,7 +110,7 @@ public class mainhome_home extends Fragment {
         yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Do nothing for now
+
             }
 
             @Override
@@ -114,6 +130,7 @@ public class mainhome_home extends Fragment {
                 // Do nothing
             }
         });
+
 
         workoutbt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,16 +162,38 @@ public class mainhome_home extends Fragment {
 
                 for (DataSnapshot noSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot foodSnapshot : noSnapshot.getChildren()) {
+
                         if (foodSnapshot.getKey().equals("운동명")) {
                             String foodName = foodSnapshot.getValue(String.class);
                             foodList.add(foodName);
                         }
+
+                            if (foodSnapshot.getValue().equals("가슴")) {
+                                String chest = noSnapshot.child("운동명").getValue(String.class);
+                                if (chest != null){chestList.add(chest);}
+                            } else if (foodSnapshot.getValue().equals("등")) {
+                                String back = noSnapshot.child("운동명").getValue(String.class);
+                                if (back != null){backList.add(back);}
+                            } else if (foodSnapshot.getValue().equals("팔")) {
+                                String arm = noSnapshot.child("운동명").getValue(String.class);
+                                if (arm != null){armList.add(arm);}
+                            } else if (foodSnapshot.getValue().equals("어깨")) {
+                                String shoulder = noSnapshot.child("운동명").getValue(String.class);
+                                if (shoulder != null){shoulderList.add(shoulder);}
+                            } else if (foodSnapshot.getValue().equals("하체")) {
+                                String leg = noSnapshot.child("운동명").getValue(String.class);
+                                if (leg != null) {
+                                    legList.add(leg);
+                                }
+                            }
+
+                        }
                     }
-                }
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, foodList);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 foodSpinner.setAdapter(adapter);
+
             }
 
             @Override
@@ -162,8 +201,47 @@ public class mainhome_home extends Fragment {
             }
         });
 
+        workoutPartRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i){
+
+                    case R.id.chestRadioButton:{
+                        System.out.println(chestList);
+                        ArrayAdapter<String> chestadapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, chestList);
+                        chestadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        foodSpinner.setAdapter(chestadapter);
+                        break;}
+                    case R.id.backRadioButton:{
+                        System.out.println(backList);
+                        ArrayAdapter<String> backadapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, backList);
+                        backadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        foodSpinner.setAdapter(backadapter);
+                        break;}
+                    case R.id.armRadioButton:{
+                        System.out.println(armList);
+                        ArrayAdapter<String> armadapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, armList);
+                        armadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        foodSpinner.setAdapter(armadapter);
+                        break;}
+                    case R.id.shoulderRadioButton:{
+                        System.out.println(shoulderList);
+                        ArrayAdapter<String> shoulderadapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, shoulderList);
+                        shoulderadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        foodSpinner.setAdapter(shoulderadapter);
+                        break;}
+                    case R.id.legRadioButton:{
+                        System.out.println(legList);
+                        ArrayAdapter<String> legadapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_item, legList);
+                        legadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        foodSpinner.setAdapter(legadapter);
+                        break;}
+                }
+            }
+        });
         return view;
     }
+
 
     private void setUpDateSpinners() {
         years = new ArrayList<>();
@@ -171,6 +249,7 @@ public class mainhome_home extends Fragment {
             years.add(Integer.toString(i));
         }
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, years);
+        yearAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(yearAdapter);
 
         months = new ArrayList<>();
@@ -178,6 +257,7 @@ public class mainhome_home extends Fragment {
             months.add(Integer.toString(i));
         }
         ArrayAdapter<String> monthAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, months);
+        monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthSpinner.setAdapter(monthAdapter);
     }
 
@@ -187,6 +267,7 @@ public class mainhome_home extends Fragment {
             days.add(Integer.toString(i));
         }
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, days);
+        dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySpinner.setAdapter(dayAdapter);
     }
 
