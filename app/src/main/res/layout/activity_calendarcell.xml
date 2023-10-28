@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/WriteData"
-        android:text="0"
+        android:text=""
         android:textSize="16sp"
         android:backgroundTint="@color/blue"/>
 </LinearLayout>
