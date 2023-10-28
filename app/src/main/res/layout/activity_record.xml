@@ -29,7 +29,7 @@
 
             //몸무게,골격근량,체지방량
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp">
                 <Space
@@ -50,7 +50,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="몸무게"
-                            android:textSize="20dp" />
+                            android:textSize="20dp"
+                            android:layout_gravity="center"/>
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -76,80 +77,15 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                //골격근량
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="골격근량"
-                            android:textSize="20dp" />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-                            <EditText
-                                android:id="@+id/skeletal_muscle_mass"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:ems="4"
-                                android:textAlignment="center"
-                                android:textSize="20dp" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="kg"
-                                android:textSize="20dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
+                //골격근량//삭제
+
 
                 <Space
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
 
-                //체지방량
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="체지방량"
-                            android:textSize="20dp" />
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-                            <EditText
-                                android:id="@+id/fat_mass"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:ems="4"
-                                android:textAlignment="center"
-                                android:textSize="20dp" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="kg"
-                                android:textSize="20dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
+                //체지방량//삭제
 
                 <Space
                     android:layout_width="wrap_content"
@@ -175,46 +111,56 @@
                 //아침, 오전간식, 점심
                 <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:orientation="horizontal"
                 >
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:text="아침"
+                    android:background="@drawable/bg_gis_result_items_count"
                     />
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:text="오전간식"
+                    android:background="@drawable/bg_gis_result_items_count"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     />
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:text="점심"
+                    android:background="@drawable/bg_gis_result_items_count"
                     />
             </LinearLayout>
                 //오후간식, 저녁, 야식
                 <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="120dp"
                 android:orientation="horizontal">
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:text="오후 간식"
+                    android:background="@drawable/bg_gis_result_items_count"
                     />
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:text="저녁"
+                    android:background="@drawable/bg_gis_result_items_count"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     />
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:text="야식"
+                    android:background="@drawable/bg_gis_result_items_count"
                     />
             </LinearLayout>
             </LinearLayout>
@@ -225,27 +171,8 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                //영양소 처방받기, 운동루틴 처방받기 버튼 모음
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
+                //영양소 처방받기, 운동루틴 처방받기 버튼 모음//삭제
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="영양소 처방 받기"
-                        android:layout_marginRight="3dp"
-                        />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="운동루틴 처방받기"
-                        android:layout_marginLeft="3dp"
-                        />
-                </LinearLayout>
 
             </LinearLayout>
             //오늘의 운동 루틴
