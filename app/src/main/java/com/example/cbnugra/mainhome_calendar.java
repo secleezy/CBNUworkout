@@ -267,6 +267,7 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
             }
                 Intent intent = new Intent(getActivity(), record.class);
                 intent.putExtra("ymd", yearMonDay);
+                intent.putExtra("user",UserID);
                 startActivity(intent);
 
         }
