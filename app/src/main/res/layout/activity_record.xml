@@ -115,12 +115,14 @@
                 android:orientation="horizontal"
                 >
                 <Button
+                    android:id="@+id/txt1"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:text="아침"
                     android:background="@drawable/bg_gis_result_items_count"
                     />
                 <Button
+                    android:id="@+id/txt2"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:text="오전간식"
@@ -129,6 +131,7 @@
                     android:layout_marginRight="5dp"
                     />
                 <Button
+                    android:id="@+id/txt3"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:text="점심"
@@ -142,12 +145,14 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:id="@+id/txt4"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:text="오후 간식"
                     android:background="@drawable/bg_gis_result_items_count"
                     />
                 <Button
+                    android:id="@+id/txt5"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:text="저녁"
@@ -156,6 +161,7 @@
                     android:layout_marginRight="5dp"
                     />
                 <Button
+                    android:id="@+id/txt6"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:text="야식"

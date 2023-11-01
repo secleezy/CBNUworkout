@@ -86,7 +86,6 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
                         //이 이후로 필요 추가한 거 코딩하면 될듯 ㅇㅇ
                         //userSnapsho : key = userID 인 key의 식단 기록 나열
                         //다음 입력시 어떤 형식인지 알 수 있음
-                        System.out.println(userSnapshot);
 
                         for(DataSnapshot dateSnapshot : userSnapshot.getChildren()){
 
@@ -285,14 +284,9 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
         if(dayText != null) {
 
             if (dateString != "") {
-                String yearMonDay;
-                if (dateString.length() < 2) {
-                    yearMonDay = YearMonthFromDate(selectedDate) + "-0" + dayText;
-                } else {
-                    yearMonDay = YearMonthFromDate(selectedDate) + "-" + dayText;
-                }
+
                 Intent intent = new Intent(getActivity(), record.class);
-                intent.putExtra("ymd", yearMonDay);
+                intent.putExtra("ymd", dateString);
                 intent.putExtra("user", UserID);
                 startActivity(intent);
 
