@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.BreakIterator;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +20,12 @@ import java.util.List;
 public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.CalendarViewHolder> {
     ArrayList<LocalDate> dayList;
     OnItemListener onItemListener;
-    public calendarAdapter(ArrayList<LocalDate> dayList, OnItemListener onItemListener){
+
+
+
+
+    public calendarAdapter(ArrayList<LocalDate> dayList, OnItemListener onItemListener, List<CalendarEventData> dateDataList){
+
         this.dayList=dayList;
         this.onItemListener = onItemListener;
     }
@@ -35,11 +41,15 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         //날짜 변수에 담기
         LocalDate day = dayList.get(position);
+
+
         if(day == null){
+
             holder.dayText.setText("");
         }
-        else{
-            holder.dayText.setText(String.valueOf(day.getDayOfMonth()));
+        else{ holder.dayText.setText(String.valueOf(day.getDayOfMonth()));
+        //여기다가 써야 textview로 들어감 ㅎ...
+        //holder.viewDiet.setText("dkdkdkdkdk");
         }
 
         if((position+1)%7==0){
@@ -65,6 +75,7 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
                 Toast.makeText(holder.itemView.getContext(), toastday, Toast.LENGTH_LONG).show();}
             }
         });
+
     }
 
     @Override
@@ -73,11 +84,14 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
     }
 
     class CalendarViewHolder extends RecyclerView.ViewHolder {
+
         //초기화
         TextView dayText;
+        TextView viewDiet, viewFit;
         public CalendarViewHolder(@NonNull View itemView){
             super(itemView);
             dayText=itemView.findViewById(R.id.dayText);
+            viewDiet = (TextView) itemView.findViewById(R.id.WriteData);
         }
     }
 
