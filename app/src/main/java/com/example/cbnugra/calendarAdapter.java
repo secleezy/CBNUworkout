@@ -11,14 +11,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.CalendarViewHolder> {
-    ArrayList<String> dayList;
+    ArrayList<LocalDate> dayList;
     OnItemListener onItemListener;
-    public calendarAdapter(ArrayList<String> dayList, OnItemListener onItemListener){
+    public calendarAdapter(ArrayList<LocalDate> dayList, OnItemListener onItemListener){
         this.dayList=dayList;
         this.onItemListener = onItemListener;
     }
@@ -33,8 +34,13 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
         //날짜 변수에 담기
-        String day = dayList.get(position);
-        holder.dayText.setText(day);
+        LocalDate day = dayList.get(position);
+        if(day == null){
+            holder.dayText.setText("");
+        }
+        else{
+            holder.dayText.setText(String.valueOf(day.getDayOfMonth()));
+        }
 
         if((position+1)%7==0){
             holder.dayText.setTextColor(Color.BLUE);
@@ -48,6 +54,13 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
             public void onClick(View view) {
                //인터페이스를 통해 날짜를 넘겨준다.
                 onItemListener.onItemClick(day);
+
+                int iYear = day.getYear();
+                int iMonth= day.getMonthValue();
+                int iDay = day.getDayOfMonth();
+
+                String toastday = iYear + "y" + iMonth + "m" + iDay + "d";
+                Toast.makeText(holder.itemView.getContext(), toastday, Toast.LENGTH_LONG).show();
             }
         });
     }
