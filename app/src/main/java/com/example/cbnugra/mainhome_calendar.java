@@ -258,10 +258,13 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     //날짜 클릭시 이벤트
     @Override
     public void onItemClick(String dayText) {
-        String yearMonDay = YearMonthFromDate(selectedDate)+ " " + dayText + "일";
-        Intent intent = new Intent(getActivity(), record.class);
-        intent.putExtra("user",name);
-        startActivity(intent);
+        if(dayText != "") {
+
+            String yearMonDay = YearMonthFromDate(selectedDate) + " " + dayText + "일";
+            Intent intent = new Intent(getActivity(), record.class);
+            intent.putExtra("ymd", yearMonDay);
+            startActivity(intent);
+        }
 
 
     }
