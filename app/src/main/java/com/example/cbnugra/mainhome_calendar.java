@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -18,14 +19,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.security.Key;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class mainhome_calendar extends Fragment implements OnItemListener{
 
@@ -35,9 +40,11 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
     private TextView title;
     private String name;
-
+    private String UserID;
     GestureDetector detector;
     TextView textView;
+    private DatabaseReference foodRecordReference = FirebaseDatabase.getInstance().getReference("Food_Record");
+    private DatabaseReference workRecordReference = FirebaseDatabase.getInstance().getReference("workout");
 
     private void showToast(String message) {
         Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_SHORT).show();
@@ -57,6 +64,48 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view =inflater.inflate(R.layout.fragment_mainhome_calendar, container, false);
 
+        if (getArguments() != null)
+        {
+            UserID = getArguments().getString("name"); // 프래그먼트1에서 받아온 값 넣기
+
+        }
+        foodRecordReference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                //List<String> workList = new ArrayList<>();
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    if (userSnapshot.getKey().equals(UserID)) {
+                        //이 이후로 필요 추가한 거 코딩하면 될듯 ㅇㅇ
+                        //userSnapsho : key = userID 인 key의 식단 기록 나열
+                        //다음 입력시 어떤 형식인지 알 수 있음
+                        //System.out.println(userSnapshot);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        workRecordReference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot userSnapshot : snapshot.getChildren()) {
+                    if (userSnapshot.getKey().equals(UserID)) {
+                        //System.out.println(userSnapshot);
+                        //userSnapsho : key = userID 인 key의 운동 기록 나열
+                        // {key = userid, value ={yyyy-mm-dd={time-log =yyyy-mm-dd , kcal= int, month = int, year= month, workoutname =Stinrg, id = userid , day = int}, yyyy-mm-dd...반복}
+                        //이 이후로 필요 추가한 거 코딩하면 될듯 ㅇㅇ
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         //초기화
         MonthYearText=(TextView)view.findViewById(R.id.MonthYearText);
         recyclerView=(RecyclerView) view.findViewById(R.id.recyclerView);
@@ -155,8 +204,9 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
         });
 
 
-        return view;
 
+
+        return view;
     }
 
 
