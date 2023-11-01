@@ -25,12 +25,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
 import java.security.Key;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class mainhome_calendar extends Fragment implements OnItemListener{
 
@@ -70,6 +74,8 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
         }
         foodRecordReference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -80,20 +86,17 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
                         //이 이후로 필요 추가한 거 코딩하면 될듯 ㅇㅇ
                         //userSnapsho : key = userID 인 key의 식단 기록 나열
                         //다음 입력시 어떤 형식인지 알 수 있음
-                        //System.out.println(userSnapshot);
+                        System.out.println(userSnapshot);
+
                         for(DataSnapshot dateSnapshot : userSnapshot.getChildren()){
-                            if(dateSnapshot.getKey().equals(selectedDate)){
-                                /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
-                                String todayDate = sdf.format(Calendar.getInstance(Locale.KOREA).getTime());*/
-                                Double energy = dateSnapshot.child("Energy").getValue(Double.class);
-                                String foodEnergy = String.valueOf(energy);
-                                viewDiet.setText(foodEnergy);
 
-                            }
-                        }
+                            String dateKey = dateSnapshot.getKey();
 
-
-                    }
+                            //    Double energy = dateSnapshot.child("Energy").getValue(Double.class);
+                              //  System.out.println(energy);
+                               // String foodEnergy = String.valueOf(energy);
+                                // viewDiet.setText(foodEnergy);
+                    }   }
                 }
             }
 
@@ -279,20 +282,22 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 날짜 형식 지정
         String dateString = dayText.format(formatter);
 
-        if (dateString != "") {
-            String yearMonDay;
-            if (dateString.length() < 2) {
-                yearMonDay = YearMonthFromDate(selectedDate) + "-0" + dayText;
-            } else {
-                yearMonDay = YearMonthFromDate(selectedDate) + "-" + dayText;
+        if(dayText != null) {
+
+            if (dateString != "") {
+                String yearMonDay;
+                if (dateString.length() < 2) {
+                    yearMonDay = YearMonthFromDate(selectedDate) + "-0" + dayText;
+                } else {
+                    yearMonDay = YearMonthFromDate(selectedDate) + "-" + dayText;
+                }
+                Intent intent = new Intent(getActivity(), record.class);
+                intent.putExtra("ymd", yearMonDay);
+                intent.putExtra("user", UserID);
+                startActivity(intent);
+
+
             }
-            Intent intent = new Intent(getActivity(), record.class);
-            intent.putExtra("ymd", yearMonDay);
-            intent.putExtra("user", UserID);
-            startActivity(intent);
-
-
         }
-
 
     }}

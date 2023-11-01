@@ -53,14 +53,16 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
             @Override
             public void onClick(View view) {
                //인터페이스를 통해 날짜를 넘겨준다.
+              if( day != null){
                 onItemListener.onItemClick(day);
 
                 int iYear = day.getYear();
                 int iMonth= day.getMonthValue();
                 int iDay = day.getDayOfMonth();
 
-                String toastday = iYear + "y" + iMonth + "m" + iDay + "d";
-                Toast.makeText(holder.itemView.getContext(), toastday, Toast.LENGTH_LONG).show();
+
+                String toastday = iYear + "-" + iMonth + "-" + iDay;
+                Toast.makeText(holder.itemView.getContext(), toastday, Toast.LENGTH_LONG).show();}
             }
         });
     }
