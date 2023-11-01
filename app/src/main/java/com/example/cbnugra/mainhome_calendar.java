@@ -236,7 +236,7 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     }
     //날짜 타입 설정 (YY년 MM월)
     private String YearMonthFromDate(LocalDate date){
-        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyy년 MM월");
+        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("yyy-MM");
         return date.format(formatter);
     }
     //화면 설정
@@ -281,11 +281,8 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
         if (dateString != "") {
             String yearMonDay;
-            if (dateString.length() < 2) {
-                yearMonDay = YearMonthFromDate(selectedDate) + "-0" + dayText;
-            } else {
-                yearMonDay = YearMonthFromDate(selectedDate) + "-" + dayText;
-            }
+                yearMonDay = dateString;
+
             Intent intent = new Intent(getActivity(), record.class);
             intent.putExtra("ymd", yearMonDay);
             intent.putExtra("user", UserID);
