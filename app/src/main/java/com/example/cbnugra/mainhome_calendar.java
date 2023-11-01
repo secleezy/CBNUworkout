@@ -1,9 +1,11 @@
 package com.example.cbnugra;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,13 +25,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.SimpleDateFormat;
+import java.security.Key;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Locale;
+import java.util.List;
 
 public class mainhome_calendar extends Fragment implements OnItemListener{
 
@@ -76,7 +78,7 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     if (userSnapshot.getKey().equals(UserID)) {
                         //이 이후로 필요 추가한 거 코딩하면 될듯 ㅇㅇ
-                        //userSnapshot : key = userID 인 key의 식단 기록 나열
+                        //userSnapsho : key = userID 인 key의 식단 기록 나열
                         //다음 입력시 어떤 형식인지 알 수 있음
                         //System.out.println(userSnapshot);
                         for(DataSnapshot dateSnapshot : userSnapshot.getChildren()){
@@ -274,14 +276,23 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     //날짜 클릭시 이벤트
     @Override
     public void onItemClick(LocalDate dayText) {
-        String yearMonDay = YearMonthFromDate(selectedDate)+ " " + dayText + "일";
-        Intent intent = new Intent(getActivity(), record.class);
-        intent.putExtra("user",name);
-        startActivity(intent);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // 날짜 형식 지정
+        String dateString = dayText.format(formatter);
+
+        if (dateString != "") {
+            String yearMonDay;
+            if (dateString.length() < 2) {
+                yearMonDay = YearMonthFromDate(selectedDate) + "-0" + dayText;
+            } else {
+                yearMonDay = YearMonthFromDate(selectedDate) + "-" + dayText;
+            }
+            Intent intent = new Intent(getActivity(), record.class);
+            intent.putExtra("ymd", yearMonDay);
+            intent.putExtra("user", UserID);
+            startActivity(intent);
 
 
-    }
+        }
 
 
-
-}
+    }}
