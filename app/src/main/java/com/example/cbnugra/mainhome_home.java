@@ -147,7 +147,19 @@ public class mainhome_home extends Fragment {
                 } else {
                     Toast toast = Toast.makeText(getActivity(), "성공적으로 저장되었습니다..", Toast.LENGTH_SHORT);
                     toast.show();
-                    time_log = getTime();
+                    if(month_text.length()<2){
+                        time_log = year_text+"-0"+month_text+"-";
+                    }
+                    else {
+                        time_log = year_text+"-"+month_text+"-";
+                    }
+                    if(day_text.length()<2){
+                        time_log = time_log+"0"+day_text;
+                    }
+                    else {
+                        time_log = time_log+day_text;
+                    }
+
                     addworkout(name, time_log, year_text, month_text, day_text, workoutname_text, kcal_text);
                 }
             }
