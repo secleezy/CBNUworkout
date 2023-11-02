@@ -180,14 +180,5 @@ addbutton.setOnClickListener(new View.OnClickListener() {
 });
         }
 
-    //값을 파이어베이스 Realtime database로 넘기는 함수
-    public void addworkout(String ID, String time_log, String Year, String Month, String Day, String workoutname, String kcal) {
-
-
-        userworkout userworkout = new userworkout(ID, time_log, Year, Month, Day, workoutname, kcal);
-        databaseReference.child("workout").child(ID).child(time_log).setValue(userworkout);
-
-
-    }
 
 }
