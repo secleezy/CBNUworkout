@@ -1,6 +1,7 @@
 package com.example.cbnugra;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,23 +11,38 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.text.BreakIterator;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.CalendarViewHolder> {
     ArrayList<LocalDate> dayList;
     OnItemListener onItemListener;
 
+    LocalDate day;
+    String UserID;
+    String date, fitdate;
+    String foodEnergy;
+    String fitEnergy;
 
+    TextView dayText;
+    TextView viewFit, viewDiet;
 
+    private List<ItemView> dateDataList = new ArrayList<>();
+    private List<String> foodDataList = new ArrayList<String>();
+    private List<String> fitDataList = new ArrayList<String>();
 
-    public calendarAdapter(ArrayList<LocalDate> dayList, OnItemListener onItemListener, List<CalendarEventData> dateDataList){
+    private DatabaseReference foodRecordReference = FirebaseDatabase.getInstance().getReference("Food_Record");
+    private DatabaseReference workRecordReference = FirebaseDatabase.getInstance().getReference("workout");
+
+    public calendarAdapter(ArrayList<LocalDate> dayList, OnItemListener onItemListener, List<ItemView> dateDataList){
 
         this.dayList=dayList;
         this.onItemListener = onItemListener;
+        this.dateDataList = dateDataList;
     }
     @NonNull
     @Override
@@ -38,17 +54,20 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
 
     @Override
     public void onBindViewHolder(@NonNull CalendarViewHolder holder, int position) {
-        //날짜 변수에 담기
-        LocalDate day = dayList.get(position);
 
+        mainhome_calendar Fragment = new mainhome_calendar();
+
+        //날짜 변수에 담기
+        day = dayList.get(position);
 
         if(day == null){
 
             holder.dayText.setText("");
         }
         else{ holder.dayText.setText(String.valueOf(day.getDayOfMonth()));
-        //여기다가 써야 textview로 들어감 ㅎ...
-        //holder.viewDiet.setText("dkdkdkdkdk");
+            String daySt = day.toString();
+            //여기다가 써야 textview로 들어감 ㅎ...
+
         }
 
         if((position+1)%7==0){
@@ -79,21 +98,36 @@ public class calendarAdapter extends RecyclerView.Adapter<calendarAdapter.Calend
 
     @Override
     public int getItemCount() {
-        return dayList.size();
+        if( dayList != null){
+
+            return dayList.size();
+        }
+        else return 0;
+
     }
 
     class CalendarViewHolder extends RecyclerView.ViewHolder {
 
         //초기화
         TextView dayText;
-        TextView viewDiet, viewFit;
+        TextView viewFit, viewDiet;
+
         public CalendarViewHolder(@NonNull View itemView){
             super(itemView);
             dayText=itemView.findViewById(R.id.dayText);
-            viewDiet = (TextView) itemView.findViewById(R.id.WriteData);
+            viewDiet = itemView.findViewById(R.id.WriteData);
+            viewFit = itemView.findViewById(R.id.WriteFit);
+
         }
     }
+    public void onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        View view =inflater.inflate(R.layout.fragment_mainhome_calendar, container, false);
 
 
-}
+
+
+    }}
+
+
+
 

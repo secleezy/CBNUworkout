@@ -49,7 +49,7 @@ public class joinbuttonpage extends AppCompatActivity {
     String Birthday;
     String Phonenum;
     Boolean trainer;
-    Boolean trainer_get=false; //라디오 골랐어?
+    Boolean trainer_get=true; //라디오 골랐어?
     
     Boolean id_check_success=false;
 

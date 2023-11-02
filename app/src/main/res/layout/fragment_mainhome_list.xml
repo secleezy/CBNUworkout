@@ -13,35 +13,110 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:id="@+id/carbsValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/proteinValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0" />
+            <TextView
+                android:id="@+id/carblable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총 탄수화물(g) : " />
 
-        <TextView
-            android:id="@+id/fatValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0" />
+            <TextView
+                android:id="@+id/carbsValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="0" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/sugarValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/energyValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0" />
+            <TextView
+                android:id="@+id/proteinlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총 단백질(g) : " />
+
+            <TextView
+                android:id="@+id/proteinValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fatlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총 지방(g) : " />
+
+            <TextView
+                android:id="@+id/fatValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/sugarlabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총 당류(g) : " />
+
+            <TextView
+                android:id="@+id/sugarValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/kcallabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="총 칼로리(kcal) : " />
+
+            <TextView
+                android:id="@+id/energyValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0" />
+
+        </LinearLayout>
     </LinearLayout>
 //영양성분
 
