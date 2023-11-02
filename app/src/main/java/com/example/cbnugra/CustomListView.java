@@ -46,7 +46,6 @@ public class CustomListView  extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.custom_listview, viewGroup, false);
         }
 
-
         TextView title = view.findViewById(R.id.title);
         TextView body_1 = view.findViewById(R.id.body_1);
         TextView body_2 = view.findViewById(R.id.body_2);

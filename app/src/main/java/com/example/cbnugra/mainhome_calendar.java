@@ -101,7 +101,7 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
                             CalendarEventData eventData = new CalendarEventData(date, foodEnergy);
                             dateDataList.add(eventData);
 
-                           //System.out.println(datedataList);
+                            //System.out.println(datedataList);
                             /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
                              String todayDate = sdf.format(Calendar.getInstance(Locale.KOREA).getTime());*/
                             // Double energy = dateSnapshot.child("Energy").getValue(Double.class);
@@ -317,7 +317,7 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
             if (dateString != "") {
                 String yearMonDay;
-                    yearMonDay = dateString;
+                yearMonDay = dateString;
                 Intent intent = new Intent(getActivity(), record.class);
                 intent.putExtra("ymd", yearMonDay);
                 intent.putExtra("user", UserID);
