@@ -169,6 +169,15 @@ txt1.setOnClickListener(new View.OnClickListener() {
     }*/
     }
 });
+addbutton.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent intent1 = new Intent(getApplicationContext(), addwork.class);
+            intent1.putExtra("ymd", yearMonDay);
+            intent1.putExtra("user", UserID);
+            startActivity(intent1);
+    }
+});
         }
 
     //값을 파이어베이스 Realtime database로 넘기는 함수
