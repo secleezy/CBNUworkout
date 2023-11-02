@@ -1,11 +1,9 @@
 package com.example.cbnugra;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,16 +22,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
-import java.security.Key;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 public class mainhome_calendar extends Fragment implements OnItemListener{
 
@@ -47,6 +40,14 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     private String UserID;
     GestureDetector detector;
     TextView textView;
+
+    //viewDiet = (TextView) view.findViewById(R.id.WriteData);
+    //viewFit = (TextView) view.findViewById(R.id.WriteFit);
+
+    private List<CalendarEventData> dateDataList = new ArrayList<>();
+    private List<String> foodDataList = new ArrayList<String>();
+    private List<String> fitDataList = new ArrayList<String>();
+
     private DatabaseReference foodRecordReference = FirebaseDatabase.getInstance().getReference("Food_Record");
     private DatabaseReference workRecordReference = FirebaseDatabase.getInstance().getReference("workout");
 
@@ -74,12 +75,11 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
         }
         foodRecordReference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
-
-
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                dateDataList.clear();
                 viewDiet = (TextView) view.findViewById(R.id.WriteData);
+
                 //List<String> workList = new ArrayList<>();
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     if (userSnapshot.getKey().equals(UserID)) {
@@ -88,19 +88,29 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
                         //다음 입력시 어떤 형식인지 알 수 있음
                         //System.out.println(userSnapshot);
                         for(DataSnapshot dateSnapshot : userSnapshot.getChildren()){
-                            if(dateSnapshot.getKey().equals(selectedDate)){
-                                /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
-                                String todayDate = sdf.format(Calendar.getInstance(Locale.KOREA).getTime());*/
-                                Double energy = dateSnapshot.child("Energy").getValue(Double.class);
-                                String foodEnergy = String.valueOf(energy);
-                                viewDiet.setText(foodEnergy);
+                            String date = dateSnapshot.getKey();
+                            String[] items = dateSnapshot.getValue().toString().split(",\\s*");
+                            foodDataList = Arrays.asList(items);
+                            int index = 1;
 
-                            }
+                            String foodEnergy = foodDataList.get(index);
+
+                            System.out.println(date);
+                            System.out.println(foodEnergy);
+
+                            CalendarEventData eventData = new CalendarEventData(date, foodEnergy);
+                            dateDataList.add(eventData);
+
+                           //System.out.println(datedataList);
+                            /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+                             String todayDate = sdf.format(Calendar.getInstance(Locale.KOREA).getTime());*/
+                            // Double energy = dateSnapshot.child("Energy").getValue(Double.class);
+                            //String foodEnergy = String.valueOf(energy);
+
                         }
-
-
                     }
                 }
+                setMonthView();
             }
 
             @Override
@@ -111,18 +121,33 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
         workRecordReference.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                dateDataList.clear();
+                viewFit = (TextView) view.findViewById(R.id.WriteFit);
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     if (userSnapshot.getKey().equals(UserID)) {
                         //System.out.println(userSnapshot);
                         //userSnapsho : key = userID 인 key의 운동 기록 나열
                         // {key = userid, value ={yyyy-mm-dd={time-log =yyyy-mm-dd , kcal= int, month = int, year= month, workoutname =Stinrg, id = userid , day = int}, yyyy-mm-dd...반복}
                         //이 이후로 필요 추가한 거 코딩하면 될듯 ㅇㅇ
-                        viewFit = (TextView) view.findViewById(R.id.WriteFit);
-                        if(snapshot.exists()){
+                        for(DataSnapshot dateSnapshot : userSnapshot.getChildren()){
+                            String date = dateSnapshot.getKey();
+                            String[] items = dateSnapshot.getValue().toString().split(",\\s*");
+                            fitDataList = Arrays.asList(items);
+                            int index = 1;
 
+                            String fitEnergy = fitDataList.get(index);
+
+                            System.out.println(date);
+                            System.out.println(fitEnergy);
+
+                            CalendarEventData eventData = new CalendarEventData(date, fitEnergy);
+                            dateDataList.add(eventData);
                         }
+
+
                     }
                 }
+                setMonthView();
             }
 
             @Override
@@ -251,10 +276,13 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
         MonthYearText.setText(MonthYearFromDate(selectedDate));
 
         ArrayList<LocalDate> dayList =daysInMonthArray(selectedDate);
-        calendarAdapter adater = new calendarAdapter(dayList, mainhome_calendar.this);
+        calendarAdapter adater = new calendarAdapter( dayList, mainhome_calendar.this, dateDataList);
         //레이아웃 설정(열 7개)
         //fragment 에서는 getContext가 안될경우 getActivity().getContext 사용
         RecyclerView.LayoutManager manager=new GridLayoutManager(getActivity().getApplicationContext(),7);
+        if(viewDiet != null){
+            viewDiet.setText("dkdkdkd");
+        }
         //레이아웃 적용
         recyclerView.setLayoutManager(manager);
         //어댑터 적용
