@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -95,8 +96,11 @@ public class mainhome_home extends Fragment {
             name = getArguments().getString("name");
         }
 
+        int selectedyear = 2023;
+        int selectedmonth = 11;
+
         setUpDateSpinners();
-        setUpDaySpinner();
+        setUpDaySpinner(selectedyear, selectedmonth);
 
         Calendar c = Calendar.getInstance();
         int currentYear = c.get(Calendar.YEAR);
@@ -110,7 +114,9 @@ public class mainhome_home extends Fragment {
         yearSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                int selectedYear = Integer.parseInt(years.get(position));
+                int selectedMonth = Integer.parseInt(months.get(monthSpinner.getSelectedItemPosition()));
+                setUpDaySpinner(selectedYear, selectedMonth);
             }
 
             @Override
@@ -123,6 +129,9 @@ public class mainhome_home extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // You can adjust the daySpinner based on selected month if you want
+                int selectedYear = Integer.parseInt(years.get(yearSpinner.getSelectedItemPosition()));
+                int selectedMonth = Integer.parseInt(months.get(position));
+                setUpDaySpinner(selectedYear, selectedMonth);
             }
 
             @Override
@@ -274,14 +283,22 @@ public class mainhome_home extends Fragment {
         monthSpinner.setAdapter(monthAdapter);
     }
 
-    private void setUpDaySpinner() {
+    private void setUpDaySpinner(int selectedYear, int selectedMonth) {
         List<String> days = new ArrayList<>();
-        for (int i = 1; i <= 31; i++) {
+
+        int maxDay = getMaxDay(selectedYear, selectedMonth);
+
+
+        for (int i = 1; i <= maxDay; i++) {
             days.add(Integer.toString(i));
         }
         ArrayAdapter<String> dayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, days);
         dayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         daySpinner.setAdapter(dayAdapter);
+    }
+    private int getMaxDay(int year, int month) {
+        YearMonth yearMonthObject = YearMonth.of(year, month);
+        return yearMonthObject.lengthOfMonth();
     }
 
     public void addworkout(String ID,String selectday, String time_log, String Year, String Month, String Day, String workoutname, String kcal) {
