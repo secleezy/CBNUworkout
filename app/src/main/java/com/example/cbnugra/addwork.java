@@ -180,27 +180,31 @@ Button workoutbt;
         listViewwork.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-/*
-                if (checkedRadioButtonId == R.id.RadioButton) {
-                    String selectedWorkout = workList.get(position);
-                    workoutname.setText(selectedWorkout);
+                int checkedRadioButtonId = radioGroup.getCheckedRadioButtonId();
+                String selectedWorkout = " ";
+               if (checkedRadioButtonId == R.id.RadioButton) {
+                    selectedWorkout = workList.get(position);
+
                 } else if (checkedRadioButtonId == R.id.chestRadioButton) {
-                    String selectedWorkout = chestList.get(position);
-                    workoutname.setText(selectedWorkout);
+                    selectedWorkout = chestList.get(position);
+
                 } else if (checkedRadioButtonId == R.id.backRadioButton) {
-                    String selectedWorkout = backList.get(position);
-                    workoutname.setText(selectedWorkout);
+                    selectedWorkout = backList.get(position);
+
                 }else if (checkedRadioButtonId == R.id.armRadioButton) {
-                    String selectedWorkout = armList.get(position);
-                    workoutname.setText(selectedWorkout);
+                    selectedWorkout = armList.get(position);
+
                 } else if (checkedRadioButtonId == R.id.shoulderRadioButton) {
-                    String selectedWorkout = shoulderList.get(position);
-                    workoutname.setText(selectedWorkout);
+                    selectedWorkout = shoulderList.get(position);
+
                 }else if (checkedRadioButtonId == R.id.legRadioButton) {
-                    String selectedWorkout = legList.get(position);
-                    workoutname.setText(selectedWorkout);
+                    selectedWorkout = legList.get(position);
+
                 }
-*/
+
+                workoutname.setText(selectedWorkout);
+
+
 
             }
         });
