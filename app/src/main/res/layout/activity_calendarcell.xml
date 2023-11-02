@@ -25,5 +25,4 @@
         android:text=" "
         android:textSize="16sp"
         android:backgroundTint="@color/orange"/>
-
 </LinearLayout>

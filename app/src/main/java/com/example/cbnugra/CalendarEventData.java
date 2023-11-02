@@ -12,7 +12,6 @@ public class CalendarEventData {
     public String getDate() {
         return date;
     }
-
     public String getData() {
         return data;
     }

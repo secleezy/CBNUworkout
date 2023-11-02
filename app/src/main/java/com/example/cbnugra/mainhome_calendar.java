@@ -57,7 +57,6 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
     //0712
 
-
     //fragment에는 setContentView가 없음
     //이 경우 그리고자 하는 View를 onCreateView 메소드에서 return해주면 된다.
     @Override
