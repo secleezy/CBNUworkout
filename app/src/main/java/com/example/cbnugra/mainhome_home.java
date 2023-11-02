@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -95,6 +96,7 @@ public class mainhome_home extends Fragment {
         if (getArguments() != null) {
             name = getArguments().getString("name");
         }
+        Calendar c = Calendar.getInstance();
 
         int selectedyear = 2023;
         int selectedmonth = 11;
@@ -102,7 +104,7 @@ public class mainhome_home extends Fragment {
         setUpDateSpinners();
         setUpDaySpinner(selectedyear, selectedmonth);
 
-        Calendar c = Calendar.getInstance();
+
         int currentYear = c.get(Calendar.YEAR);
         int currentMonth = c.get(Calendar.MONTH);
         int currentDay = c.get(Calendar.DAY_OF_MONTH) - 1; // list index starts from 0
@@ -117,6 +119,7 @@ public class mainhome_home extends Fragment {
                 int selectedYear = Integer.parseInt(years.get(position));
                 int selectedMonth = Integer.parseInt(months.get(monthSpinner.getSelectedItemPosition()));
                 setUpDaySpinner(selectedYear, selectedMonth);
+
             }
 
             @Override

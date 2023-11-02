@@ -157,21 +157,22 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal"
-        android:layout_marginTop="15dp">
+        android:visibility="gone">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:layout_marginRight="5dp"
             android:text="회원유형"
-            android:layout_marginRight="5dp"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/code_trainer"
@@ -179,7 +180,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:text="트레이너"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <RadioButton
                 android:id="@+id/code_none"
@@ -188,32 +189,35 @@
                 android:layout_marginRight="5dp"
                 android:checked="true"
                 android:text="해당 없음"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
         </RadioGroup>
-        //회원유형 라디오 버튼 비활성화(enabled = false) 상태임. 현재 해당없음에 true값. 가져온 회원유형 정보에 따라 false ture가 바뀌도록 해야함.
+        //회원유형 라디오 버튼 비활성화(enabled = false) 상태임. 현재 해당없음에 true값. 가져온 회원유형 정보에 따라 false ture가 바뀌도록
+        해야함.
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal"
-        android:layout_marginTop="15dp">
+        tools:visibility="gone">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:layout_marginRight="5dp"
             android:text="트레이너코드"
-            android:layout_marginRight="5dp"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/codenumber_trainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="ABC123"
             android:enabled="false"
-            >
-        </TextView>
+            android:text="ABC123"
+            android:textSize="20dp"></TextView>
         //트레이너 코드 관련은 추후 변경하도록 할 것.
     </LinearLayout>
 

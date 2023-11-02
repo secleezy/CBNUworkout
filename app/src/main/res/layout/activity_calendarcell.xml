@@ -16,14 +16,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/WriteData"
         android:text=" "
-        android:textSize="16sp"
+        android:textSize="10sp"
         android:backgroundTint="@color/darkblue"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/WriteFit"
         android:text=" "
-        android:textSize="16sp"
+        android:textSize="10sp"
         android:backgroundTint="@color/orange"/>
 
 </LinearLayout>
