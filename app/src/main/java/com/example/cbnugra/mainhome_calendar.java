@@ -100,7 +100,9 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
                             ItemView dateData = new ItemView(date, foodEnergy);
                             dateDataList.add(dateData);
-                            
+
+                            System.out.println(foodDataList);
+
 
                             //System.out.println(datedataList);
                             /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
