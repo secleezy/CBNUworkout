@@ -41,7 +41,7 @@ public class mainhome_home extends Fragment {
     RadioButton chestRadioButton,backRadioButton,armRadioButton,shoulderRadioButton,legRadioButton;
     List<String> years, months;
 
-    String time_log;
+    String time_log,selectday;
 //es
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = firebaseDatabase.getReference();
@@ -147,20 +147,21 @@ public class mainhome_home extends Fragment {
                 } else {
                     Toast toast = Toast.makeText(getActivity(), "성공적으로 저장되었습니다..", Toast.LENGTH_SHORT);
                     toast.show();
+                    time_log = getTime();
                     if(month_text.length()<2){
-                        time_log = year_text+"-0"+month_text+"-";
+                        selectday = year_text+"-0"+month_text+"-";
                     }
                     else {
-                        time_log = year_text+"-"+month_text+"-";
+                        selectday = year_text+"-"+month_text+"-";
                     }
                     if(day_text.length()<2){
-                        time_log = time_log+"0"+day_text;
+                        selectday = selectday+"0"+day_text;
                     }
                     else {
-                        time_log = time_log+day_text;
+                        selectday = selectday+day_text;
                     }
 
-                    addworkout(name, time_log, year_text, month_text, day_text, workoutname_text, kcal_text);
+                    addworkout(name,selectday, time_log, year_text, month_text, day_text, workoutname_text, kcal_text);
                 }
             }
         });
@@ -283,8 +284,8 @@ public class mainhome_home extends Fragment {
         daySpinner.setAdapter(dayAdapter);
     }
 
-    public void addworkout(String ID, String time_log, String Year, String Month, String Day, String workoutname, String kcal) {
-        userworkout userworkout = new userworkout(ID, time_log, Year, Month, Day, workoutname, kcal);
+    public void addworkout(String ID,String selectday, String time_log, String Year, String Month, String Day, String workoutname, String kcal) {
+        userworkout userworkout = new userworkout(ID, selectday, Year, Month, Day, workoutname, kcal);
         databaseReference.child("workout").child(ID).child(time_log).setValue(userworkout);
     }
 }
