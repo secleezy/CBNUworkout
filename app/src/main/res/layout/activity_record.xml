@@ -103,71 +103,72 @@
                 android:textStyle="bold"
                 android:layout_margin="4dp"/>
             //버튼 모음
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
                 //아침, 오전간식, 점심
-                <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="120dp"
-                android:orientation="horizontal"
-                >
-                <Button
-                    android:id="@+id/txt1"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:text="아침"
-                    android:background="@drawable/bg_gis_result_items_count"
-                    />
-                <Button
-                    android:id="@+id/txt2"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:text="오전간식"
-                    android:background="@drawable/bg_gis_result_items_count"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    />
-                <Button
-                    android:id="@+id/txt3"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:text="점심"
-                    android:background="@drawable/bg_gis_result_items_count"
-                    />
-            </LinearLayout>
-                //오후간식, 저녁, 야식
-                <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="120dp"
-                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/txt4"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:text="오후 간식"
-                    android:background="@drawable/bg_gis_result_items_count"
-                    />
-                <Button
-                    android:id="@+id/txt5"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:text="저녁"
-                    android:background="@drawable/bg_gis_result_items_count"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    />
-                <Button
-                    android:id="@+id/txt6"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:text="야식"
-                    android:background="@drawable/bg_gis_result_items_count"
-                    />
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="109dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/txt1"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/bg_gis_result_items_count"
+                        android:text="아침" />
+
+                    <Button
+                        android:id="@+id/txt2"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/bg_gis_result_items_count"
+                        android:text="오전간식" />
+
+                    <Button
+                        android:id="@+id/txt3"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/bg_gis_result_items_count"
+                        android:text="점심" />
+                </LinearLayout>
+                //오후간식, 저녁, 야식
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="109dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/txt4"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/bg_gis_result_items_count"
+                        android:text="오후 간식" />
+
+                    <Button
+                        android:id="@+id/txt5"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/bg_gis_result_items_count"
+                        android:text="저녁" />
+
+                    <Button
+                        android:id="@+id/txt6"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:background="@drawable/bg_gis_result_items_count"
+                        android:text="야식" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
