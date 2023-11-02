@@ -190,32 +190,19 @@
                 android:layout_margin="4dp"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            <EditText
-                android:id="@+id/exercisename"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="운동이름"
-                android:textAlignment="center"
-                android:ems="5"/>
-                <EditText
-                    android:id="@+id/editText1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="칼로리"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/addbutton"
-                android:text="아이템 추가"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="운동 추가" />
             //운동루틴 목록- listview
 
             <ListView
                 android:id="@+id/list_view_exerciseroutine"
                 android:layout_width="match_parent"
-                android:layout_height="199dp"></ListView>
+                android:layout_height="match_parent"></ListView>
             <!--
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -241,17 +228,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:gravity="center">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="•\n•\n•\n•"
-        />
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="공유하기"/>
-</LinearLayout>
+    android:gravity="center"/>
         </LinearLayout>
 
     </ScrollView>
