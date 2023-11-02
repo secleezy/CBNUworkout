@@ -19,7 +19,7 @@
         android:id="@+id/member_list"
         android:enabled="true"
         android:icon="@drawable/list"
-        android:title="식단기록"
+        android:title="오늘식단"
         app:showAsAction="always"
         />
     <item
