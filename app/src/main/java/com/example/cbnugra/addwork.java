@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -66,24 +67,27 @@ Button workoutbt;
         String month = dateParts[1].replaceFirst("^0+(?!$)", "");; // 월 (mm)
         String day = dateParts[2].replaceFirst("^0+(?!$)", "");; // 일 (dd)
 
+
         listViewwork = findViewById(R.id.listViewwork);
         workoutPartRadioGroup = findViewById(R.id.workoutPartRadioGroup);
         workoutname=findViewById(R.id.workoutname);
         kcal=findViewById(R.id.kcal);
         workoutbt= findViewById(R.id.workoutbt);
+        RadioGroup radioGroup = findViewById(R.id.workoutPartRadioGroup);
+        RadioButton radioButton = findViewById(R.id.RadioButton);
 
         List<String> chestList = new ArrayList<>();
         List<String> backList = new ArrayList<>();
         List<String> armList = new ArrayList<>();
         List<String> shoulderList = new ArrayList<>();
         List<String> legList = new ArrayList<>();
-
+        List<String> workList = new ArrayList<>();
         workRef = FirebaseDatabase.getInstance().getReference("Workout_List");
 
         workRef.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> workList = new ArrayList<>();
+
 
                 for (DataSnapshot noSnapshot : dataSnapshot.getChildren()) {
                     for (DataSnapshot foodSnapshot : noSnapshot.getChildren()) {
@@ -119,23 +123,26 @@ Button workoutbt;
                                 legList.add(leg);
                             }
                         }
-
+                        radioButton.setChecked(true);
                     }
                 }
-                 adapter = new ArrayAdapter<>(addwork.this, android.R.layout.simple_list_item_1, workList);
-                listViewwork.setAdapter(adapter);
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
         workoutPartRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch (i) {
+                    case R.id.RadioButton:{
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(addwork.this, android.R.layout.simple_list_item_1, workList);
+                        listViewwork.setAdapter(adapter);
+
+                        break;
+                    }
 
                     case R.id.chestRadioButton: {
 
@@ -174,10 +181,27 @@ Button workoutbt;
         listViewwork.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                String selectedWorkout = adapter.getItem(position);
-                workoutname.setText(selectedWorkout);
-
+/*
+                if (checkedRadioButtonId == R.id.RadioButton) {
+                    String selectedWorkout = workList.get(position);
+                    workoutname.setText(selectedWorkout);
+                } else if (checkedRadioButtonId == R.id.chestRadioButton) {
+                    String selectedWorkout = chestList.get(position);
+                    workoutname.setText(selectedWorkout);
+                } else if (checkedRadioButtonId == R.id.backRadioButton) {
+                    String selectedWorkout = backList.get(position);
+                    workoutname.setText(selectedWorkout);
+                }else if (checkedRadioButtonId == R.id.armRadioButton) {
+                    String selectedWorkout = armList.get(position);
+                    workoutname.setText(selectedWorkout);
+                } else if (checkedRadioButtonId == R.id.shoulderRadioButton) {
+                    String selectedWorkout = shoulderList.get(position);
+                    workoutname.setText(selectedWorkout);
+                }else if (checkedRadioButtonId == R.id.legRadioButton) {
+                    String selectedWorkout = legList.get(position);
+                    workoutname.setText(selectedWorkout);
+                }
+*/
 
             }
         });
