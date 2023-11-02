@@ -1,12 +1,15 @@
 package com.example.cbnugra;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,16 +29,17 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class addwork extends AppCompatActivity {
-
-    EditText workoutname;
+Button workoutbt;
+    EditText workoutname,kcal;
     RadioGroup workoutPartRadioGroup;
     ListView listViewwork;
-    Button buttonSearch;
+    ArrayAdapter<String> adapter;
+
+    String time_log;
+
     private DatabaseReference workRef;
-    private ArrayList<String> workList = new ArrayList<>();;
-    private ArrayAdapter<String> adapter;
-
-
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = firebaseDatabase.getReference();
     private String getTime() {
         TimeZone tz;
         long now = System.currentTimeMillis();
@@ -53,10 +57,20 @@ public class addwork extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addwork);
 
-        workoutname = findViewById(R.id.workoutname);
+        Intent intent = getIntent();
+        String UserID = intent.getStringExtra("user"); //id
+        String yearMonDay = intent.getStringExtra("ymd");
+        String[] dateParts = yearMonDay.split("-");
+        String year = dateParts[0].replaceFirst("^0+(?!$)", "");; // 연도 (yyyy)
+        String month = dateParts[1].replaceFirst("^0+(?!$)", "");; // 월 (mm)
+        String day = dateParts[2].replaceFirst("^0+(?!$)", "");; // 일 (dd)
+
         listViewwork = findViewById(R.id.listViewwork);
         workoutPartRadioGroup = findViewById(R.id.workoutPartRadioGroup);
-        buttonSearch = findViewById(R.id.buttonSearch);
+        workoutname=findViewById(R.id.workoutname);
+        kcal=findViewById(R.id.kcal);
+        workoutbt= findViewById(R.id.workoutbt);
+
         List<String> chestList = new ArrayList<>();
         List<String> backList = new ArrayList<>();
         List<String> armList = new ArrayList<>();
@@ -107,7 +121,7 @@ public class addwork extends AppCompatActivity {
 
                     }
                 }
-                ArrayAdapter<String> adapter = new ArrayAdapter<>(addwork.this, android.R.layout.simple_list_item_1, workList);
+                 adapter = new ArrayAdapter<>(addwork.this, android.R.layout.simple_list_item_1, workList);
                 listViewwork.setAdapter(adapter);
 
             }
@@ -155,16 +169,44 @@ public class addwork extends AppCompatActivity {
                 }
             }
         });
+
+        listViewwork.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String selectedWorkout = adapter.getItem(position);
+                workoutname.setText(selectedWorkout);
+
+
+            }
+        });
+        workoutbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String year_text = year;
+                String month_text = month;
+                String day_text = day;
+                String workoutname_text = workoutname.getText().toString();
+                String kcal_text = kcal.getText().toString();
+
+                if (workoutname_text.isEmpty() || kcal_text.isEmpty()) {
+                    Toast toast = Toast.makeText(getApplicationContext(), "모든 항목을 입력 해 주세요.", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "성공적으로 저장되었습니다..", Toast.LENGTH_SHORT);
+                    toast.show();
+                    time_log = getTime();
+
+                    addworkout(UserID,yearMonDay, time_log, year_text, month_text, day_text, workoutname_text, kcal_text);
+                }
+            }
+        });
+    }
+    //값을 파이어베이스 Realtime database로 넘기는 함수
+    public void addworkout(String ID,String selectday, String time_log, String Year, String Month, String Day, String workoutname, String kcal) {
+        userworkout userworkout = new userworkout(ID, selectday, Year, Month, Day, workoutname, kcal);
+        databaseReference.child("workout").child(ID).child(time_log).setValue(userworkout);
     }
 }
 
-/*
-    //값을 파이어베이스 Realtime database로 넘기는 함수
-    public void addworkout(String ID, String time_log, String Year, String Month, String Day, String workoutname, String kcal) {
 
-
-        userworkout userworkout = new userworkout(ID, time_log, Year, Month, Day, workoutname, kcal);
-        databaseReference.child("workout").child(ID).child(time_log).setValue(userworkout);
-
-
-    }*/
