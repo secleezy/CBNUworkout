@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="5"
-            android:text="김이박"
+            android:text=""
             android:textSize="20dp"
             android:enabled="false"
             />
@@ -127,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="5"
-            android:hint="MM/DD/YY"
+            android:hint=""
             android:textSize="20dp" />
         //생년월일 정보 받아와야 함 현재 아무런 입력정보 없음.
     </LinearLayout>
@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"
             android:ems="8"
             android:textSize="20dp"
-            android:text="010-1234-1234"
+            android:text=""
             />
         //전화번호 정보 받아와야 함 현재 010-1234-1234.
     </LinearLayout>
@@ -159,7 +159,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:orientation="horizontal"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -201,6 +202,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:orientation="horizontal"
+        android:visibility="gone"
         tools:visibility="gone">
 
         <TextView
