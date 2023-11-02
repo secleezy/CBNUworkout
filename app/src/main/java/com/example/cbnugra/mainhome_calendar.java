@@ -31,6 +31,8 @@ import java.util.List;
 
 public class mainhome_calendar extends Fragment implements OnItemListener{
 
+
+
     TextView MonthYearText; //년월 텍스트뷰
     LocalDate selectedDate; //년월 변수
     RecyclerView recyclerView;
@@ -41,10 +43,12 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     GestureDetector detector;
     TextView textView;
 
-    //viewDiet = (TextView) view.findViewById(R.id.WriteData);
+    private calendarAdapter adapter;
+
+
     //viewFit = (TextView) view.findViewById(R.id.WriteFit);
 
-    private List<CalendarEventData> dateDataList = new ArrayList<>();
+    private List<ItemView> dateDataList = new ArrayList<>();
     private List<String> foodDataList = new ArrayList<String>();
     private List<String> fitDataList = new ArrayList<String>();
 
@@ -56,7 +60,6 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
     }
 
     //0712
-
 
     //fragment에는 setContentView가 없음
     //이 경우 그리고자 하는 View를 onCreateView 메소드에서 return해주면 된다.
@@ -79,7 +82,7 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 dateDataList.clear();
                 viewDiet = (TextView) view.findViewById(R.id.WriteData);
-
+                if(snapshot.exists()){
                 //List<String> workList = new ArrayList<>();
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     if (userSnapshot.getKey().equals(UserID)) {
@@ -95,13 +98,11 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
                             String foodEnergy = foodDataList.get(index);
 
-                            System.out.println(date);
-                            System.out.println(foodEnergy);
+                            ItemView dateData = new ItemView(date, foodEnergy);
+                            dateDataList.add(dateData);
+                            
 
-                            CalendarEventData eventData = new CalendarEventData(date, foodEnergy);
-                            dateDataList.add(eventData);
-
-                           //System.out.println(datedataList);
+                            //System.out.println(datedataList);
                             /*SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
                              String todayDate = sdf.format(Calendar.getInstance(Locale.KOREA).getTime());*/
                             // Double energy = dateSnapshot.child("Energy").getValue(Double.class);
@@ -109,7 +110,7 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
 
                         }
                     }
-                }
+                }}
                 setMonthView();
             }
 
@@ -123,6 +124,7 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 dateDataList.clear();
                 viewFit = (TextView) view.findViewById(R.id.WriteFit);
+                if(snapshot.exists()){
                 for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                     if (userSnapshot.getKey().equals(UserID)) {
                         //System.out.println(userSnapshot);
@@ -130,23 +132,20 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
                         // {key = userid, value ={yyyy-mm-dd={time-log =yyyy-mm-dd , kcal= int, month = int, year= month, workoutname =Stinrg, id = userid , day = int}, yyyy-mm-dd...반복}
                         //이 이후로 필요 추가한 거 코딩하면 될듯 ㅇㅇ
                         for(DataSnapshot dateSnapshot : userSnapshot.getChildren()){
-                            String date = dateSnapshot.getKey();
+                            String fitdate = dateSnapshot.getKey();
                             String[] items = dateSnapshot.getValue().toString().split(",\\s*");
                             fitDataList = Arrays.asList(items);
                             int index = 1;
 
                             String fitEnergy = fitDataList.get(index);
 
-                            System.out.println(date);
-                            System.out.println(fitEnergy);
-
-                            CalendarEventData eventData = new CalendarEventData(date, fitEnergy);
+                            ItemView eventData = new ItemView(fitdate, fitEnergy);
                             dateDataList.add(eventData);
                         }
 
 
                     }
-                }
+                }}
                 setMonthView();
             }
 
@@ -280,9 +279,6 @@ public class mainhome_calendar extends Fragment implements OnItemListener{
         //레이아웃 설정(열 7개)
         //fragment 에서는 getContext가 안될경우 getActivity().getContext 사용
         RecyclerView.LayoutManager manager=new GridLayoutManager(getActivity().getApplicationContext(),7);
-        if(viewDiet != null){
-            viewDiet.setText("dkdkdkd");
-        }
         //레이아웃 적용
         recyclerView.setLayoutManager(manager);
         //어댑터 적용

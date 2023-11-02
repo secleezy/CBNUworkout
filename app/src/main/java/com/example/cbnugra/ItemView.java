@@ -1,10 +1,12 @@
 package com.example.cbnugra;
 
-public class CalendarEventData {
-    private String date;
-    private String data;
+public class ItemView {
+    public String date;
+    public String data;
 
-    public CalendarEventData(String date, String data) {
+    public ItemView(){} // 기본 생성자
+
+    public ItemView(String date, String data) {
         this.date = date;
         this.data = data;
     }
